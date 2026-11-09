@@ -95,12 +95,32 @@
     .receipt-dash {
       border-top: 1px dashed #bccac0;
     }
+
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #printable-receipt, #printable-receipt * {
+        visibility: visible !important;
+      }
+      #printable-receipt {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 80mm !important;
+        margin: 0 auto !important;
+        padding: 8px !important;
+        box-shadow: none !important;
+        background: white !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-surface antialiased flex flex-col min-h-screen select-none">
 
-  <!-- ================= SCREEN 0: REGISTRASI & DAFTAR AKUN (WAJIB PERTAMA KALI) ================= -->
-  <div id="screen-registration" class="fixed inset-0 z-50 bg-surface overflow-y-auto flex flex-col pt-safe pb-safe">
+  <!-- ================= SCREEN 0: AUTHENTICATION (LOGIN & REGISTRASI EMAIL) ================= -->
+  <div id="screen-auth" class="fixed inset-0 z-50 bg-surface overflow-y-auto flex flex-col pt-safe pb-safe">
     <div class="max-w-md w-full mx-auto p-4 space-y-4">
       
       <!-- Top Welcome Card -->
@@ -109,54 +129,127 @@
         <div class="flex items-start justify-between relative z-10 mb-3">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs">
             <span class="material-symbols-outlined text-[16px]">storefront</span>
-            <span>My Kasir ID</span>
+            <span>My Kasir Cloud ID</span>
           </div>
           <div class="flex items-center gap-1 text-primary text-xs font-semibold">
-            <span class="material-symbols-outlined text-[18px]">verified_user</span>
-            <span>Privat & Aman</span>
+            <span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+            <span>Data Otomatis Terhubung</span>
           </div>
         </div>
         <div class="relative z-10 space-y-1">
-          <h1 class="text-xl font-bold text-on-surface">Daftar Akun Pengelola Toko</h1>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
-            Mulai kelola kasir POS, stok barang masuk, dan terhubung langsung ke Google Spreadsheet.
-          </p>
-        </div>
-        <div class="mt-4 grid grid-cols-3 gap-2 relative z-10 text-center">
-          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
-            <span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
-            <span class="block text-[11px] font-bold text-on-surface mt-0.5">POS Kilat</span>
-          </div>
-          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
-            <span class="material-symbols-outlined text-tertiary text-[20px]">table_chart</span>
-            <span class="block text-[11px] font-bold text-on-surface mt-0.5">Google Sheet</span>
-          </div>
-          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
-            <span class="material-symbols-outlined text-primary-container text-[20px]">inventory_2</span>
-            <span class="block text-[11px] font-bold text-on-surface mt-0.5">Stok Rinci</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 0 Produk Condition Banner -->
-      <div class="rounded-2xl bg-secondary-container/40 p-4 shadow-sm border border-secondary-container flex items-start gap-3">
-        <div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
-          <span class="material-symbols-outlined text-[22px]">inventory</span>
-        </div>
-        <div class="flex-1 space-y-1">
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="font-bold text-xs text-on-surface">📦 Akun Baru: Database Bersih</span>
-            <span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold text-[10px]">0 Produk Awal</span>
-          </div>
-          <p class="text-[11px] text-on-surface-variant leading-relaxed">
-            Saat pertama mendaftar, etalase kasir dan katalog dibuka dalam keadaan <strong>kosong (0 produk)</strong>. Anda dapat menginput produk jualan perdana toko Anda sendiri setelah akun dibuat.
+          <h1 id="auth-header-title" class="text-xl font-bold text-on-surface">Masuk ke Toko Anda</h1>
+          <p id="auth-header-desc" class="text-xs text-on-surface-variant leading-relaxed">
+            Gunakan email akun Anda untuk membuka kasir dan mendeteksi seluruh data produk & penjualan yang tersimpan.
           </p>
         </div>
       </div>
 
-      <!-- Main Registration Form -->
-      <form id="form-register" class="space-y-3.5 bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-surface-container-high/60" onsubmit="handleRegistrationSubmit(event)">
+      <!-- Segmented Auth Tab: Masuk (Login) vs Daftar Baru -->
+      <div class="p-1 rounded-xl bg-surface-container-high flex items-center shadow-xs">
+        <button id="tab-auth-login" onclick="switchAuthTab('login')" type="button" 
+                class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-center bg-surface-container-lowest text-primary shadow-xs flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">login</span>
+          <span>Masuk (Login)</span>
+        </button>
+        <button id="tab-auth-register" onclick="switchAuthTab('register')" type="button" 
+                class="flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">person_add</span>
+          <span>Daftar Toko Baru</span>
+        </button>
+      </div>
+
+      <!-- Quick Pick: Saved Accounts on This Device -->
+      <div id="saved-accounts-section" class="hidden flex-col gap-2 p-3 bg-primary-fixed/30 rounded-2xl border border-primary/20">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-primary flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">history</span>
+            <span>Akun Terdeteksi di Perangkat Ini:</span>
+          </span>
+          <span class="text-[10px] text-secondary">Tap untuk auto-isi</span>
+        </div>
+        <div id="saved-accounts-list" class="flex flex-col gap-1.5">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- ================= FORM 1: LOGIN DENGAN EMAIL ================= -->
+      <form id="form-login" class="space-y-3.5 bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-surface-container-high/60" onsubmit="handleLoginSubmit(event)">
         
+        <!-- Input Email Login -->
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="login-email">
+            <span>Email Toko / Pengelola</span>
+            <span class="text-rose-600">*</span>
+          </label>
+          <div class="relative flex items-center rounded-xl bg-surface-container-low px-3 py-3 border border-surface-container-high focus-within:border-primary">
+            <span class="material-symbols-outlined text-secondary text-[20px] mr-2">mail</span>
+            <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium font-mono" 
+                   id="login-email" placeholder="nama@gmail.com" required type="email">
+          </div>
+          <p class="text-[10px] text-secondary">Semua data produk & transaksi otomatis kedetect sesuai email ini.</p>
+        </div>
+
+        <!-- Input PIN Kasir 6-Digit Login -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1">
+              <span>PIN Kasir (6 Digit)</span>
+              <span class="text-rose-600">*</span>
+            </label>
+            <span class="text-[11px] font-bold text-primary flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-[14px]">lock</span>
+              Proteksi Akun
+            </span>
+          </div>
+          <div class="grid grid-cols-6 gap-2 pt-1" id="login-pin-container">
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="login-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+          </div>
+        </div>
+
+        <!-- Tombol Masuk -->
+        <div class="pt-2">
+          <button id="btn-login-submit" type="submit" 
+                  class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-white font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span>Masuk & Buka Toko</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <div class="text-center pt-1">
+          <button type="button" onclick="switchAuthTab('register')" class="text-xs text-secondary hover:text-primary transition-colors">
+            Belum punya toko? <strong class="text-primary font-bold">Daftar Toko Baru di sini</strong>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- ================= FORM 2: DAFTAR TOKO BARU ================= -->
+      <form id="form-register" class="space-y-3.5 bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-surface-container-high/60 hidden" onsubmit="handleRegistrationSubmit(event)">
+        
+        <!-- 0 Produk Condition Banner -->
+        <div class="rounded-xl bg-secondary-container/50 p-3 shadow-xs flex items-center gap-2.5 text-xs text-on-secondary-container">
+          <span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0">inventory_2</span>
+          <span>Akun baru dibuka dalam keadaan <strong>kosong (0 produk)</strong>. Produk ditambahkan setelah toko aktif.</span>
+        </div>
+
+        <!-- Email Pendaftaran -->
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="reg-email">
+            <span>Email Pemilik / Toko</span>
+            <span class="text-rose-600">*</span>
+          </label>
+          <div class="relative flex items-center rounded-xl bg-surface-container-low px-3 py-3 border border-surface-container-high focus-within:border-primary">
+            <span class="material-symbols-outlined text-secondary text-[20px] mr-2">mail</span>
+            <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium font-mono" 
+                   id="reg-email" placeholder="nama@gmail.com" required type="email">
+          </div>
+        </div>
+
         <!-- Nama Pemilik -->
         <div class="space-y-1">
           <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="reg-owner">
@@ -195,14 +288,13 @@
             <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium font-mono" 
                    id="reg-phone" placeholder="812-3456-7890" required type="tel">
           </div>
-          <p class="text-[10px] text-secondary">Digunakan pada nota struk belanja digital & share WhatsApp.</p>
         </div>
 
         <!-- PIN 6 Digit -->
         <div class="space-y-1">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1">
-              <span>PIN Keamanan Kasir (6 Digit)</span>
+              <span>Buat PIN Kasir (6 Digit)</span>
               <span class="text-rose-600">*</span>
             </label>
             <span class="text-[11px] font-bold text-primary flex items-center gap-0.5">
@@ -218,19 +310,12 @@
             <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
             <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
           </div>
-          <p class="text-[10px] text-secondary">PIN untuk otorisasi transaksi kasir dan ubah harga.</p>
         </div>
 
         <!-- Google Sheets Option -->
-        <div class="rounded-xl bg-surface-container-low p-3.5 space-y-2 border border-surface-container-high/60">
+        <div class="rounded-xl bg-surface-container-low p-3 space-y-1.5 border border-surface-container-high/60">
           <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-tertiary text-[20px]">cloud_sync</span>
-              <div>
-                <span class="text-xs font-bold text-on-surface block">Google Spreadsheet Sync</span>
-                <span class="text-[10px] text-secondary">Opsional / Dibuat Otomatis</span>
-              </div>
-            </div>
+            <span class="text-xs font-bold text-on-surface">Nama Google Spreadsheet</span>
             <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold">Auto-Gen</span>
           </div>
           <input class="w-full bg-surface-container-lowest border border-surface-container-high rounded-lg px-3 py-2 text-xs text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary" 
@@ -241,12 +326,27 @@
         <div class="pt-2">
           <button id="btn-reg-submit" type="submit" 
                   class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-white font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
-            <span>Buat Akun & Masuk Toko Baru</span>
+            <span>Daftar & Buat Toko Baru</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
         </div>
 
+        <div class="text-center pt-1">
+          <button type="button" onclick="switchAuthTab('login')" class="text-xs text-secondary hover:text-primary transition-colors">
+            Sudah punya akun? <strong class="text-primary font-bold">Masuk di sini</strong>
+          </button>
+        </div>
+
       </form>
+
+      <!-- Trust Assurance Footer -->
+      <div class="p-3 bg-surface-container rounded-xl flex items-center gap-3 text-xs text-secondary">
+        <span class="material-symbols-outlined text-primary text-[24px]">shield</span>
+        <span>Data toko Anda tersimpan per email & aman di perangkat Anda.</span>
+      </div>
+
+    </div>
+  </div>
 
       <!-- Trust Assurance Footer -->
       <div class="p-3 bg-surface-container rounded-xl flex items-center gap-3 text-xs text-secondary">
@@ -1142,6 +1242,15 @@
       </div>
 
       <div class="p-4 overflow-y-auto space-y-3">
+        <!-- Akun Email Terhubung Info Card -->
+        <div class="p-3 bg-surface-container rounded-xl flex items-center justify-between border border-surface-container-high/60">
+          <div class="flex flex-col min-w-0 pr-2">
+            <span class="text-[10px] text-secondary uppercase tracking-wider font-semibold">Email Login Terhubung</span>
+            <span id="cfg-account-email" class="font-bold text-xs text-primary truncate font-mono">email@anda.com</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold flex-shrink-0">Online</span>
+        </div>
+
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Nama Toko</label>
           <input id="cfg-store-name" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface font-semibold focus:outline-none focus:border-primary">
@@ -1167,13 +1276,15 @@
           <input id="cfg-target-omset" type="number" step="100000" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm font-currency font-bold text-primary focus:outline-none focus:border-primary">
         </div>
 
-        <!-- Danger Zone / Reset Akun -->
-        <div class="pt-3 border-t border-surface-container space-y-1">
-          <span class="text-xs font-bold text-rose-600 block">Zona Reset Akun</span>
-          <button onclick="resetAccountData()" type="button" class="w-full py-2.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-xs active:scale-95 transition-all flex items-center justify-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px]">logout</span>
-            <span>Keluar & Reset Akun Toko</span>
+        <!-- Logout & Account Zone -->
+        <div class="pt-3 border-t border-surface-container space-y-2">
+          <button onclick="handleLogout()" type="button" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+            <span>Keluar Akun (Logout)</span>
           </button>
+          <p class="text-[10px] text-secondary text-center leading-relaxed">
+            Data produk, stok, dan transaksi Anda tersimpan aman per email. Saat login kembali dengan email ini, semua data langsung terdeteksi otomatis.
+          </p>
         </div>
       </div>
 
@@ -1304,13 +1415,11 @@
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     // ================= STORAGE KEYS =================
-    const STORAGE_KEY_AUTH = 'my_kasir_auth_v2';
-    const STORAGE_KEY_PRODUCTS = 'my_kasir_products_v2';
-    const STORAGE_KEY_TRANSACTIONS = 'my_kasir_transactions_v2';
-    const STORAGE_KEY_INBOUND = 'my_kasir_inbound_v2';
-    const STORAGE_KEY_SETTINGS = 'my_kasir_settings_v2';
+    const STORAGE_KEY_ACCOUNTS_MAP = 'my_kasir_accounts_database_v3';
+    const STORAGE_KEY_ACTIVE_SESSION = 'my_kasir_active_email_v3';
 
-    // State Variables (Clean Slate: 0 Products Initially!)
+    // State Variables
+    let activeEmail = null;
     let auth = null;
     let products = [];
     let transactions = [];
@@ -1320,6 +1429,29 @@
     let activeCategory = 'Semua';
     let currentPaymentMethod = 'Tunai';
     let deferredInstallPrompt = null;
+
+    // Helper: Get Accounts Database Map
+    function getAccountsDatabase() {
+      const saved = localStorage.getItem(STORAGE_KEY_ACCOUNTS_MAP);
+      return saved ? JSON.parse(saved) : {};
+    }
+
+    // Helper: Save & Persist Current Account Data
+    function persistActiveAccount() {
+      if (!activeEmail) return;
+      const accounts = getAccountsDatabase();
+      accounts[activeEmail] = {
+        email: activeEmail,
+        auth: auth,
+        settings: settings,
+        products: products,
+        transactions: transactions,
+        inboundLogs: inboundLogs,
+        lastUpdated: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE_KEY_ACCOUNTS_MAP, JSON.stringify(accounts));
+      localStorage.setItem(STORAGE_KEY_ACTIVE_SESSION, activeEmail);
+    }
 
     // Format Rupiah Helper
     function formatRp(num) {
@@ -1349,26 +1481,25 @@
       setTimeout(() => {
         toast.classList.remove('opacity-100', 'translate-y-0');
         toast.classList.add('opacity-0', '-translate-y-3', 'pointer-events-none');
-      }, 2000);
+      }, 2200);
     }
 
     // ================= INITIALIZATION =================
     function initApp() {
-      // Setup PIN 6-digit auto-advancing interaction
+      // Setup PIN inputs interaction
       setupPinInputs();
 
-      // Check registration
-      const savedAuth = localStorage.getItem(STORAGE_KEY_AUTH);
-      if (savedAuth) {
-        auth = JSON.parse(savedAuth);
-      }
+      // Check Active Session
+      const savedEmail = localStorage.getItem(STORAGE_KEY_ACTIVE_SESSION);
+      const accounts = getAccountsDatabase();
 
-      if (!auth || !auth.isRegistered) {
-        // Show Registration Screen first!
-        showRegistrationScreen();
-      } else {
-        // Already registered, enter main application
+      if (savedEmail && accounts[savedEmail]) {
+        // Auto-login active session
+        loadAccountData(savedEmail);
         showMainApp();
+      } else {
+        // Show Auth Screen
+        showAuthScreen(Object.keys(accounts).length > 0 ? 'login' : 'register');
       }
 
       // Setup PWA install listener
@@ -1390,44 +1521,112 @@
     }
 
     function setupPinInputs() {
-      const pinInputs = document.querySelectorAll('.reg-pin-digit');
-      pinInputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
-          if (e.target.value.length === 1 && index < pinInputs.length - 1) {
-            pinInputs[index + 1].focus();
-          }
-        });
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !e.target.value && index > 0) {
-            pinInputs[index - 1].focus();
-          }
+      ['.reg-pin-digit', '.login-pin-digit'].forEach(selector => {
+        const pinInputs = document.querySelectorAll(selector);
+        pinInputs.forEach((input, index) => {
+          input.addEventListener('input', (e) => {
+            if (e.target.value.length === 1 && index < pinInputs.length - 1) {
+              pinInputs[index + 1].focus();
+            }
+          });
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+              pinInputs[index - 1].focus();
+            }
+          });
         });
       });
     }
 
-    function showRegistrationScreen() {
-      document.getElementById('screen-registration').classList.remove('hidden');
+    function switchAuthTab(tab) {
+      const tabLogin = document.getElementById('tab-auth-login');
+      const tabRegister = document.getElementById('tab-auth-register');
+      const formLogin = document.getElementById('form-login');
+      const formRegister = document.getElementById('form-register');
+      const headerTitle = document.getElementById('auth-header-title');
+      const headerDesc = document.getElementById('auth-header-desc');
+
+      if (tab === 'login') {
+        tabLogin.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-center bg-surface-container-lowest text-primary shadow-xs flex items-center justify-center gap-1.5';
+        tabRegister.className = 'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5';
+        formLogin.classList.remove('hidden');
+        formRegister.classList.add('hidden');
+        headerTitle.textContent = 'Masuk ke Toko Anda';
+        headerDesc.textContent = 'Gunakan email akun Anda untuk membuka kasir dan mendeteksi seluruh data produk & penjualan yang tersimpan.';
+      } else {
+        tabRegister.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-center bg-surface-container-lowest text-primary shadow-xs flex items-center justify-center gap-1.5';
+        tabLogin.className = 'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5';
+        formRegister.classList.remove('hidden');
+        formLogin.classList.add('hidden');
+        headerTitle.textContent = 'Daftar Toko Baru';
+        headerDesc.textContent = 'Mulai kelola kasir POS, etalase toko baru (0 produk), dan sinkronisasi Google Spreadsheet.';
+      }
+      renderSavedAccountsList();
+    }
+
+    function showAuthScreen(initialTab = 'login') {
+      document.getElementById('screen-auth').classList.remove('hidden');
       document.getElementById('main-app-header').classList.add('hidden');
       document.getElementById('main-app-content').classList.add('hidden');
       document.getElementById('main-app-nav').classList.add('hidden');
+      switchAuthTab(initialTab);
     }
 
-    function handleRegistrationSubmit(event) {
+    function renderSavedAccountsList() {
+      const accounts = getAccountsDatabase();
+      const container = document.getElementById('saved-accounts-list');
+      const section = document.getElementById('saved-accounts-section');
+      const emails = Object.keys(accounts);
+
+      if (emails.length === 0) {
+        section.classList.add('hidden');
+        section.classList.remove('flex');
+        return;
+      }
+
+      section.classList.remove('hidden');
+      section.classList.add('flex');
+
+      container.innerHTML = emails.map(em => {
+        const acc = accounts[em];
+        const prodCount = (acc.products && acc.products.length) || 0;
+        return `
+          <button type="button" onclick="selectSavedAccount('${em}')" 
+                  class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-left border border-surface-container shadow-xs active:scale-95 transition-all">
+            <div class="flex items-center gap-2 min-w-0 pr-1">
+              <span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0">storefront</span>
+              <div class="flex flex-col min-w-0">
+                <span class="font-bold text-xs text-on-surface truncate">${acc.settings?.storeName || acc.auth?.storeName || 'Toko'}</span>
+                <span class="text-[10px] text-secondary font-mono truncate">${em}</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-currency font-bold flex-shrink-0">
+              ${prodCount} Produk
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectSavedAccount(email) {
+      switchAuthTab('login');
+      const inputEmail = document.getElementById('login-email');
+      inputEmail.value = email;
+      const firstPin = document.querySelector('.login-pin-digit');
+      if (firstPin) firstPin.focus();
+      showToast(`Email ${email} dipilih. Masukkan PIN untuk membuka toko.`);
+    }
+
+    function handleLoginSubmit(event) {
       event.preventDefault();
-
-      const ownerName = document.getElementById('reg-owner').value.trim();
-      const storeName = document.getElementById('reg-store').value.trim();
-      const phone = document.getElementById('reg-phone').value.trim();
-      const sheetNameInput = document.getElementById('reg-sheet-name').value.trim();
-
-      // Collect 6-digit PIN
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
       let pinCode = '';
-      document.querySelectorAll('.reg-pin-digit').forEach(input => {
+      document.querySelectorAll('.login-pin-digit').forEach(input => {
         pinCode += input.value.trim();
       });
 
-      if (!ownerName || !storeName || !phone) {
-        showToast('Mohon lengkapi data pemilik dan toko', false);
+      if (!email) {
+        showToast('Masukkan alamat email toko Anda', false);
         return;
       }
 
@@ -1436,10 +1635,72 @@
         return;
       }
 
+      const accounts = getAccountsDatabase();
+      const account = accounts[email];
+
+      if (!account) {
+        showToast('Email belum terdaftar. Silakan pilih tab "Daftar Toko Baru".', false);
+        switchAuthTab('register');
+        document.getElementById('reg-email').value = email;
+        return;
+      }
+
+      if (account.auth && account.auth.pin && account.auth.pin !== pinCode) {
+        showToast('PIN Kasir salah! Periksa kembali 6 digit PIN Anda.', false);
+        return;
+      }
+
+      // RESTORE PREVIOUS DATA FOR THIS EMAIL
+      loadAccountData(email);
+
+      const btnSubmit = document.getElementById('btn-login-submit');
+      btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Membuka Toko & Data...</span>';
+
+      setTimeout(() => {
+        btnSubmit.innerHTML = '<span>Masuk & Buka Toko</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
+        showMainApp();
+        showToast(`Selamat Datang, ${auth.ownerName}! Data toko "${settings.storeName}" terdeteksi (${products.length} produk). ✅`);
+      }, 700);
+    }
+
+    function handleRegistrationSubmit(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const ownerName = document.getElementById('reg-owner').value.trim();
+      const storeName = document.getElementById('reg-store').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const sheetNameInput = document.getElementById('reg-sheet-name').value.trim();
+
+      let pinCode = '';
+      document.querySelectorAll('.reg-pin-digit').forEach(input => {
+        pinCode += input.value.trim();
+      });
+
+      if (!email || !ownerName || !storeName || !phone) {
+        showToast('Mohon lengkapi semua data pendaftaran', false);
+        return;
+      }
+
+      if (pinCode.length < 6) {
+        showToast('PIN Kasir harus 6 digit angka', false);
+        return;
+      }
+
+      const accounts = getAccountsDatabase();
+      if (accounts[email]) {
+        showToast('Email ini sudah terdaftar! Mengalihkan ke halaman Masuk...', false);
+        switchAuthTab('login');
+        document.getElementById('login-email').value = email;
+        return;
+      }
+
       const defaultSheetName = sheetNameInput || `Database_${storeName.replace(/\s+/g, '')}_Sheets`;
 
-      // Save Auth State
+      // Set Active State
+      activeEmail = email;
       auth = {
+        email: email,
         isRegistered: true,
         ownerName,
         storeName,
@@ -1448,9 +1709,7 @@
         sheetName: defaultSheetName,
         registeredAt: new Date().toISOString()
       };
-      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(auth));
 
-      // Initialize Settings from registration
       settings = {
         storeName: storeName,
         ownerName: ownerName,
@@ -1461,65 +1720,82 @@
         sheetName: defaultSheetName,
         webhookUrl: ''
       };
-      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
 
-      // INITIALIZE CLEAN SLATE (0 PRODUK SAMASEKALI)
+      // INITIALIZE CLEAN SLATE (0 PRODUK AWAL UNTUK AKUN BARU)
       products = [];
       transactions = [];
       inboundLogs = [];
       cart = {};
 
-      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-      localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
-      localStorage.setItem(STORAGE_KEY_INBOUND, JSON.stringify(inboundLogs));
+      persistActiveAccount();
 
       const btnSubmit = document.getElementById('btn-reg-submit');
       btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Menyiapkan Toko Baru...</span>';
 
       setTimeout(() => {
-        showToast(`Selamat Datang di ${storeName}! Database baru 0 produk siap digunakan. 🎉`);
+        btnSubmit.innerHTML = '<span>Daftar & Buat Toko Baru</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
         showMainApp();
-      }, 800);
+        showToast(`Selamat Datang di ${storeName}! Database baru 0 produk siap digunakan. 🎉`);
+      }, 700);
+    }
+
+    function loadAccountData(email) {
+      const accounts = getAccountsDatabase();
+      const account = accounts[email];
+      if (!account) return;
+
+      activeEmail = email;
+      auth = account.auth || { email: email, storeName: 'Toko Saya', ownerName: 'Pengelola' };
+      settings = account.settings || {
+        storeName: auth.storeName || 'Toko Saya',
+        ownerName: auth.ownerName || 'Pengelola',
+        phone: auth.phone || '',
+        address: 'Alamat ' + (auth.storeName || 'Toko'),
+        receiptFooter: 'Barang yang sudah dibeli tidak dapat ditukar.',
+        targetOmset: 1500000,
+        sheetName: auth.sheetName || 'Database_Sheets',
+        webhookUrl: ''
+      };
+      products = account.products || [];
+      transactions = account.transactions || [];
+      inboundLogs = account.inboundLogs || [];
+      cart = {};
+
+      localStorage.setItem(STORAGE_KEY_ACTIVE_SESSION, activeEmail);
+    }
+
+    function handleLogout() {
+      if (confirm('Keluar dari akun toko ini? Data produk dan transaksi Anda tetap tersimpan aman.')) {
+        persistActiveAccount();
+
+        const lastEmail = activeEmail;
+        activeEmail = null;
+        auth = null;
+        cart = {};
+        localStorage.removeItem(STORAGE_KEY_ACTIVE_SESSION);
+
+        closeProfileModal();
+        showAuthScreen('login');
+
+        if (lastEmail) {
+          const loginInput = document.getElementById('login-email');
+          if (loginInput) loginInput.value = lastEmail;
+        }
+
+        document.querySelectorAll('.login-pin-digit, .reg-pin-digit').forEach(input => input.value = '');
+
+        showToast('Anda telah keluar (Logout). Data toko tersimpan aman. 🔒');
+      }
     }
 
     function showMainApp() {
-      // Hide registration screen
-      document.getElementById('screen-registration').classList.add('hidden');
-
-      // Show header, content, and bottom navigation
+      document.getElementById('screen-auth').classList.add('hidden');
       document.getElementById('main-app-header').classList.remove('hidden');
       document.getElementById('main-app-content').classList.remove('hidden');
       document.getElementById('main-app-nav').classList.remove('hidden');
 
-      // Load data from localStorage
-      const savedProducts = localStorage.getItem(STORAGE_KEY_PRODUCTS);
-      products = savedProducts ? JSON.parse(savedProducts) : [];
-
-      const savedTx = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
-      transactions = savedTx ? JSON.parse(savedTx) : [];
-
-      const savedInb = localStorage.getItem(STORAGE_KEY_INBOUND);
-      inboundLogs = savedInb ? JSON.parse(savedInb) : [];
-
-      const savedSettings = localStorage.getItem(STORAGE_KEY_SETTINGS);
-      if (savedSettings) {
-        settings = JSON.parse(savedSettings);
-      } else if (auth) {
-        settings = {
-          storeName: auth.storeName,
-          ownerName: auth.ownerName,
-          phone: auth.phone,
-          address: 'Alamat ' + auth.storeName,
-          receiptFooter: 'Barang yang sudah dibeli tidak dapat ditukar.',
-          targetOmset: 1500000,
-          sheetName: auth.sheetName,
-          webhookUrl: ''
-        };
-      }
-
       applySettingsToUI();
 
-      // Render components
       renderPOSProducts();
       updateCartUI();
       populateInboundDropdown();
@@ -1528,17 +1804,6 @@
       updateRekapanMetrics('bulan');
       renderCatalogTable();
       updateCatalogMetrics();
-    }
-
-    function resetAccountData() {
-      if (confirm('Yakin ingin mereset akun toko ini? Anda akan diarahkan kembali ke halaman pendaftaran awal.')) {
-        localStorage.removeItem(STORAGE_KEY_AUTH);
-        localStorage.removeItem(STORAGE_KEY_SETTINGS);
-        localStorage.removeItem(STORAGE_KEY_PRODUCTS);
-        localStorage.removeItem(STORAGE_KEY_TRANSACTIONS);
-        localStorage.removeItem(STORAGE_KEY_INBOUND);
-        location.reload();
-      }
     }
 
     function applySettingsToUI() {
@@ -1551,6 +1816,8 @@
       document.getElementById('receipt-footer-notes').textContent = settings.receiptFooter;
       document.getElementById('banner-sheet-name').textContent = settings.sheetName;
       document.getElementById('catalog-sheet-title').textContent = settings.sheetName;
+      const emailDisplay = document.getElementById('cfg-account-email');
+      if (emailDisplay) emailDisplay.textContent = activeEmail || (auth && auth.email) || '-';
 
       // Modal inputs
       document.getElementById('cfg-store-name').value = settings.storeName;
@@ -1916,8 +2183,7 @@
 
       // Save Transaction & Product Stocks
       transactions.unshift(newTransaction);
-      localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
-      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      persistActiveAccount();
 
       // Close payment modal
       closePaymentModal();
@@ -2060,9 +2326,7 @@
       };
 
       inboundLogs.unshift(newLog);
-
-      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-      localStorage.setItem(STORAGE_KEY_INBOUND, JSON.stringify(inboundLogs));
+      persistActiveAccount();
 
       showToast(`Berhasil menambah +${qtyIn} pcs untuk ${prod.name}!`);
 
@@ -2370,7 +2634,7 @@
       if (!prod) return;
       if (confirm(`Yakin ingin menghapus produk "${prod.name}" dari katalog?`)) {
         products = products.filter(p => p.id !== prodId);
-        localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+        persistActiveAccount();
         renderCatalogTable();
         updateCatalogMetrics();
         renderPOSProducts();
@@ -2419,7 +2683,7 @@
         products.push(newProduct);
       }
 
-      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      persistActiveAccount();
       closeProductModal();
       renderCatalogTable();
       updateCatalogMetrics();
@@ -2454,7 +2718,7 @@
       settings.receiptFooter = document.getElementById('cfg-receipt-footer').value.trim() || '';
       settings.targetOmset = Number(document.getElementById('cfg-target-omset').value) || 1500000;
 
-      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+      persistActiveAccount();
       applySettingsToUI();
       closeProfileModal();
       showToast('Profil toko berhasil diperbarui! ✅');
@@ -2464,7 +2728,7 @@
       settings.sheetName = document.getElementById('cfg-sheet-name').value.trim() || 'Database_Sheets';
       settings.webhookUrl = document.getElementById('cfg-webhook-url').value.trim();
 
-      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+      persistActiveAccount();
       applySettingsToUI();
       closeSheetsSyncModal();
       triggerManualSync();
