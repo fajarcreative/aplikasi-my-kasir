@@ -470,8 +470,8 @@
                 <span class="material-symbols-outlined text-[13px]">receipt_long</span>
                 <span id="pos-today-count">0 Transaksi</span>
               </span>
-              <span class="text-xs text-primary-fixed/90 font-medium">
-                Toko Baru Aktif
+              <span id="pos-today-profit" class="text-xs text-primary-fixed/90 font-medium">
+                Toko Siap Transaksi
               </span>
             </div>
           </div>
@@ -479,6 +479,18 @@
             <span class="material-symbols-outlined text-[28px] text-primary-fixed">trending_up</span>
           </div>
         </div>
+
+        <!-- Target Omset Progress Bar -->
+        <div class="relative z-10 pt-3 mt-2 border-t border-white/15 space-y-1.5">
+          <div class="flex items-center justify-between text-[10px] text-primary-fixed/90 font-medium">
+            <span id="pos-target-progress-text">Target Harian: 0% dari Rp 1.500.000</span>
+            <span id="pos-today-profit-pill" class="font-bold text-white">Untung Rp 0</span>
+          </div>
+          <div class="w-full h-1.5 bg-black/25 rounded-full overflow-hidden">
+            <div id="pos-target-progress-bar" class="h-full bg-primary-fixed rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
         <!-- Decorative Glow -->
         <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
       </div>
@@ -2047,10 +2059,11 @@
 
       renderPOSProducts();
       updateCartUI();
+      updatePOSTodaySummary();
       populateInboundDropdown();
       renderInboundHistory();
       document.getElementById('inbound-date').value = new Date().toISOString().split('T')[0];
-      updateRekapanMetrics('bulan');
+      updateRekapanMetrics(currentRekapanPeriod || 'bulan');
       renderCatalogTable();
       updateCatalogMetrics();
     }
@@ -2107,7 +2120,8 @@
       }
 
       // Refresh data on tab switch
-      if (tabId === 'rekapan') updateRekapanMetrics('bulan');
+      if (tabId === 'kasir') updatePOSTodaySummary();
+      if (tabId === 'rekapan') updateRekapanMetrics(currentRekapanPeriod || 'bulan');
       if (tabId === 'katalog') { renderCatalogTable(); updateCatalogMetrics(); }
       if (tabId === 'barang-masuk') populateInboundDropdown();
 
@@ -2441,6 +2455,8 @@
       cart = {};
       renderPOSProducts();
       updateCartUI();
+      updatePOSTodaySummary();
+      updateRekapanMetrics(currentRekapanPeriod);
 
       // Show Receipt Modal
       renderReceipt(newTransaction);
@@ -2614,8 +2630,55 @@
       `;}).join('');
     }
 
+    // ================= POS SUMMARY (OMSET & TRANSAKSI HARI INI) =================
+    let currentRekapanPeriod = 'bulan';
+
+    function isSameLocalDay(dateStr1, dateObj2) {
+      if (!dateStr1) return false;
+      const d1 = new Date(dateStr1);
+      const d2 = dateObj2 instanceof Date ? dateObj2 : new Date(dateObj2);
+      return d1.getFullYear() === d2.getFullYear() &&
+             d1.getMonth() === d2.getMonth() &&
+             d1.getDate() === d2.getDate();
+    }
+
+    function updatePOSTodaySummary() {
+      const now = new Date();
+      const todayTxs = (transactions || []).filter(t => isSameLocalDay(t.timestamp, now));
+
+      const todayOmset = todayTxs.reduce((sum, t) => sum + (Number(t.subtotal) || 0), 0);
+      const todayProfit = todayTxs.reduce((sum, t) => sum + (Number(t.profit) || 0), 0);
+      const todayCount = todayTxs.length;
+
+      const omsetEl = document.getElementById('pos-today-omset');
+      if (omsetEl) omsetEl.textContent = formatRp(todayOmset);
+
+      const countEl = document.getElementById('pos-today-count');
+      if (countEl) countEl.textContent = `${todayCount} Transaksi`;
+
+      const profitEl = document.getElementById('pos-today-profit');
+      if (profitEl) {
+        if (todayCount > 0) {
+          profitEl.textContent = `Untung Bersih ${formatRp(todayProfit)}`;
+        } else {
+          profitEl.textContent = 'Toko Siap Transaksi';
+        }
+      }
+
+      // Target Omset progress
+      const target = Number(settings.targetOmset) || 1500000;
+      const pct = Math.min(100, Math.round((todayOmset / target) * 100));
+      const progressText = document.getElementById('pos-target-progress-text');
+      if (progressText) progressText.textContent = `Target Harian: ${pct}% dari ${formatRp(target)}`;
+      const progressBar = document.getElementById('pos-target-progress-bar');
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      const profitPill = document.getElementById('pos-today-profit-pill');
+      if (profitPill) profitPill.textContent = `Untung ${formatRp(todayProfit)}`;
+    }
+
     // ================= REKAPAN & LABA LOGIC =================
     function switchRekapanPeriod(period, btnElement) {
+      currentRekapanPeriod = period;
       document.querySelectorAll('.rekapan-pill').forEach(btn => {
         btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
         btn.classList.add('text-secondary');
@@ -2626,16 +2689,21 @@
       updateRekapanMetrics(period);
     }
 
-    function updateRekapanMetrics(period) {
-      let filteredTx = transactions;
+    function updateRekapanMetrics(period = currentRekapanPeriod) {
+      currentRekapanPeriod = period;
+      let filteredTx = transactions || [];
       const now = new Date();
 
       if (period === 'hari') {
-        const todayStr = now.toISOString().split('T')[0];
-        filteredTx = transactions.filter(t => t.timestamp.startsWith(todayStr));
+        filteredTx = filteredTx.filter(t => isSameLocalDay(t.timestamp, now));
       } else if (period === 'minggu') {
         const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
-        filteredTx = transactions.filter(t => new Date(t.timestamp) >= sevenDaysAgo);
+        filteredTx = filteredTx.filter(t => new Date(t.timestamp) >= sevenDaysAgo);
+      } else if (period === 'bulan') {
+        filteredTx = filteredTx.filter(t => {
+          const d = new Date(t.timestamp);
+          return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+        });
       }
 
       const totalOmset = filteredTx.reduce((sum, t) => sum + (t.subtotal || 0), 0);
@@ -2969,6 +3037,7 @@
 
       persistActiveAccount();
       applySettingsToUI();
+      updatePOSTodaySummary();
       closeProfileModal();
       showToast('Profil toko berhasil diperbarui! ✅');
     }
