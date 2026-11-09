@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#d3e4fe", "error-container": "#ffdad6", "tertiary-container": "#2170e4", "on-secondary": "#ffffff", "surface-tint": "#006c4a", "surface-bright": "#f8f9ff", "surface-container-highest": "#d3e4fe", "on-tertiary-fixed": "#001a42", "on-surface-variant": "#3d4a42", "inverse-on-surface": "#eaf1ff", "secondary-container": "#dae2fd", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "background": "#f8f9ff", "outline-variant": "#bccac0", "on-error-container": "#93000a", "on-error": "#ffffff", "primary-fixed": "#85f8c4", "surface-container": "#e5eeff", "on-primary-container": "#f5fff7", "on-primary-fixed": "#002114", "on-secondary-fixed": "#131b2e", "tertiary-fixed": "#d8e2ff", "on-primary": "#ffffff", "surface": "#f8f9ff", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "tertiary": "#0058be", "on-secondary-container": "#5c647a", "on-secondary-fixed-variant": "#3f465c", "inverse-surface": "#213145", "outline": "#6d7a72", "secondary-fixed": "#dae2fd", "secondary": "#565e74", "on-tertiary-fixed-variant": "#004395", "surface-container-high": "#dce9ff", "on-tertiary-container": "#fefcff", "secondary-fixed-dim": "#bec6e0", "tertiary-fixed-dim": "#adc6ff", "on-background": "#0b1c30", "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-primary-fixed-variant": "#005137", "on-surface": "#0b1c30", "inverse-primary": "#68dba9", "primary": "#006948", "surface-container-low": "#eff4ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin": "1rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "margin-tablet": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "currency-display": ["JetBrains Mono"], "currency-lg": ["JetBrains Mono"], "display-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "currency-md": ["JetBrains Mono"], "label-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "currency-display": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "currency-lg": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }], "display-lg": ["36px", { "lineHeight": "44px", "fontWeight": "700" }], "currency-md": ["15px", { "lineHeight": "20px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="My Kasir Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3K4CT1f9ICUZBvxy4T7gawCh2Hbs-qK4IYx2rLHGZYUpUbPim1YQlwN7qrKkqCnPe022tO2RcIgyXgMCfYmejVhSzkZPpqqZWaUrctf2GdwaAaYS5_aebe2WcQ2ejtdj8I7_pfxO3mo_RE_ZTkAnI4urq2B3VQ7afO-PUlIgSqK3SW5DZqEk7GAlvkijLQSxQF4jEJqTuHg2RyLrEzJdXOWx20yq6s-KDEBsoel3l"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5"><span class="text-label-md font-label-md text-on-surface truncate">Setya Aksesoris &amp; Kasir</span></div><div class="flex items-center gap-1.5 mt-0.5"><div class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary-fixed/40"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span class="text-label-sm font-label-sm text-primary tracking-tight whitespace-nowrap">Spreadsheet: Terhubung 🟢</span></div></div></div></div><div class="flex items-center gap-space-sm flex-shrink-0"><button aria-label="Buka Profil" class="relative p-0.5 rounded-full flex items-center justify-center min-w-[44px] min-h-[44px]" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmcSnQgh6KNOQE9jqtAFbZ2pDVsoUREArYTWm7-4tF7BMZsnRZkT0cM05BC6rK6qf88InZbjy6TNRYb14SAghwY1WQWbDOUC9-bv16UeJj1haBavICHxCp9THWQZLsYKgd8EYDSZ-OThDrvsS4baGFNBnvBNz7O_MhYebTqIVJc3zlYdsv_1XZe_q5dx0_Et-NOlfPSNiATl8hJjbmY5Z_lLXC78Gd2K-EjzKHL_qI"/></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Dimmed Background POS Viewport -->
+<div class="w-full flex flex-col gap-space-md opacity-25 pointer-events-none select-none filter blur-[2px] transition-all">
+<div class="px-margin flex items-center gap-space-sm pt-space-xs">
+<div class="flex-1 bg-surface-container-lowest h-12 rounded-xl flex items-center px-3.5 gap-2 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">search</span>
+<span class="text-body-md font-body-md text-secondary">Cari aksesoris atau barcode...</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-sm text-secondary">
+<span class="material-symbols-outlined text-[22px]">barcode_scanner</span>
+</div>
+</div>
+<div class="flex gap-2 px-margin overflow-hidden">
+<div class="px-3.5 py-2 rounded-full bg-primary text-on-primary text-label-md font-label-md">Semua (24)</div>
+<div class="px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md">Alat Tulis</div>
+<div class="px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md">Fashion &amp; Hijab</div>
+<div class="px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md">Aksesoris Rambut</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm px-margin">
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-sm">
+<div class="w-full h-24 rounded-lg bg-surface-container flex items-center justify-center">
+<img class="w-full h-full object-cover rounded-lg" data-alt="Kotak Pensil Susun Sanrio cute stationery organizer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC6oHHZYbQ1gf1bi8biVByZvvelIkFT7ipiOTvuxEMjQ8VMg68Hb36xta3uZB6jguG4hG9HmV-ID_egsdYkqTfdqSbKcXzCCjJqUHZV7wCCx300D0LgjisA3GMmQ1A2OsHwEFpxjI2cR5PX0UI7MBTdbKHbNOYf31Bke8PIXRGF2HuYG92xfcdiJuZ5sp-5DhQQME-GaqnYAQvPsMzTs_afClQyhbn3IKrWmuSVAmY"/>
+</div>
+<span class="text-body-md font-body-md font-bold text-on-surface truncate">Kotak Pensil Susun Sanrio</span>
+<span class="text-currency-md font-currency-md text-primary">Rp 35.000</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-sm">
+<div class="w-full h-24 rounded-lg bg-surface-container flex items-center justify-center">
+<img class="w-full h-full object-cover rounded-lg" data-alt="Kerudung Bella Square Anak premium pastel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvCJFWCHqPpblpRLURmG0WGllhCdlRljXGcdMrR_ZL8jum45twAhJCQezKFJ4La-2gigYgZRvYMSNuKkumLDDU8thzoW77hiJi6jse2CYnp1KZSL-4SE0WYqjwbwIksVcf8hcCc-UWlIkvf7E3wevDrP66LVA6GQvxONVwe8Wjm2lG_RF3TgEqARbAA9OdZNKQKNKE7zwoSaTy2TNO5HRcv5-c7TYluYJA0Vb2jaGN"/>
+</div>
+<span class="text-body-md font-body-md font-bold text-on-surface truncate">Kerudung Bella Square Anak</span>
+<span class="text-currency-md font-currency-md text-primary">Rp 25.000</span>
+</div>
+</div>
+</div>
+<!-- Modal Backdrop Layer -->
+<div class="fixed inset-0 z-40 bg-on-background/60 backdrop-blur-sm transition-opacity"></div>
+<!-- Payment Modal Bottom Sheet Frame -->
+<div class="fixed inset-x-0 bottom-0 z-50 max-h-[92vh] flex flex-col rounded-t-[28px] bg-surface-container-lowest shadow-2xl overflow-hidden animate-slide-up">
+<!-- Top Grab Handle & Header -->
+<div class="pt-3 pb-2 px-margin flex flex-col items-center bg-surface-container-lowest border-b border-surface-container/60">
+<div class="w-10 h-1.5 rounded-full bg-outline-variant/60 mb-2.5"></div>
+<div class="w-full flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-primary-container/15 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="text-headline-sm font-headline-sm text-on-surface tracking-tight">Pembayaran Kasir</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-secondary text-label-sm font-label-sm font-semibold" id="trx-badge">#TRX-8821</span>
+</div>
+<span class="text-body-sm font-body-sm text-secondary">Setya Aksesoris • Kasir 01</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<!-- Interactive State Switcher for Demo testing Empty vs Filled -->
+<div class="flex items-center bg-surface-container-low rounded-lg p-0.5 border border-surface-container text-label-sm font-label-sm">
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-primary font-bold shadow-xs transition-all" id="state-toggle-filled" title="Mode Keranjang Ada Barang" type="button">Ada Item</button>
+<button class="px-2 py-1 rounded text-secondary hover:text-on-surface transition-all" id="state-toggle-empty" title="Mode Keranjang Kosong" type="button">Kosong (0)</button>
+</div>
+<button aria-label="Tutup pembayaran" class="w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-secondary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Scrollable Content Area -->
+<div class="overflow-y-auto px-margin pb-6 flex flex-col gap-3.5 pt-2">
+<!-- KONDISI KOSONG (EMPTY STATE) JIKA TIDAK MEMILIH BARANG (HIDDEN BY DEFAULT) -->
+<div class="hidden flex-col items-center justify-center py-10 px-4 text-center bg-surface-container-low rounded-2xl border border-dashed border-outline-variant my-2" id="section-empty-cart">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-secondary mb-3">
+<span class="material-symbols-outlined text-[32px]">remove_shopping_cart</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-on-surface font-bold">Keranjang Belanja Kosong</span>
+<p class="text-body-sm font-body-sm text-secondary max-w-xs mt-1 mb-5">Belum ada item yang dipilih dari Kasir. Total tagihan saat ini Rp 0.</p>
+<button class="h-11 px-5 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center gap-2 shadow-sm hover:brightness-105 active:scale-[0.98] transition-all" id="btn-back-to-cashier" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    Kembali ke Kasir
+  </button>
+</div>
+<!-- CONTAINER CART & PAYMENT (ACTIVE WHEN ITEMS EXIST) -->
+<div class="flex flex-col gap-3.5" id="section-cart-active">
+<!-- 1. PREVIEW RINCIAN SELURUH PRODUK BELANJAAN JELAS & LENGKAP -->
+<div class="rounded-2xl p-3.5 bg-surface-container-low border border-primary/25 flex flex-col gap-2.5 shadow-sm relative overflow-hidden">
+<!-- Header Card & Status Sync -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">receipt_long</span>
+<span class="text-label-md font-label-md font-semibold text-on-surface">Rincian Belanjaan</span>
+<span class="text-label-sm font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-semibold">3 Barang</span>
+</div>
+<div class="inline-flex items-center gap-1 bg-primary-fixed/50 px-2 py-0.5 rounded-full text-label-sm font-label-sm text-primary font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+      Sheets: Terhubung 🟢
+    </div>
+</div>
+<!-- Preview Daftar Lengkap Barang Sesuai Permintaan -->
+<div class="flex flex-col divide-y divide-surface-container/70 bg-surface-container-lowest rounded-xl p-2.5 border border-surface-container/60 shadow-xs" id="cart-item-list">
+<!-- Item 1 -->
+<div class="flex items-center justify-between py-1.5 text-body-sm font-body-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="w-5 h-5 rounded-md bg-primary-fixed/40 text-primary flex items-center justify-center text-label-sm font-bold flex-shrink-0">1x</span>
+<span class="text-on-surface font-semibold truncate">Kotak Pensil Susun Sanrio</span>
+</div>
+<span class="font-currency-md text-on-surface font-semibold flex-shrink-0 pl-2">Rp 35.000</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between py-1.5 text-body-sm font-body-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="w-5 h-5 rounded-md bg-primary-fixed/40 text-primary flex items-center justify-center text-label-sm font-bold flex-shrink-0">1x</span>
+<span class="text-on-surface font-semibold truncate">Kerudung Bella Square Anak</span>
+</div>
+<span class="font-currency-md text-on-surface font-semibold flex-shrink-0 pl-2">Rp 25.000</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between py-1.5 text-body-sm font-body-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="w-5 h-5 rounded-md bg-primary-fixed/40 text-primary flex items-center justify-center text-label-sm font-bold flex-shrink-0">1x</span>
+<span class="text-on-surface font-semibold truncate">Jepit Rambut Pita Blink</span>
+</div>
+<span class="font-currency-md text-on-surface font-semibold flex-shrink-0 pl-2">Rp 15.000</span>
+</div>
+</div>
+<!-- Total Tagihan Belanja Highlight (Rp 75.000) -->
+<div class="flex items-baseline justify-between pt-1 border-t border-primary/10">
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-secondary font-semibold">Total Tagihan Belanja</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Pajak &amp; Biaya: Rp 0 (Termasuk)</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-headline-lg font-headline-lg text-primary font-bold">Rp</span>
+<span class="text-display-lg font-currency-display text-primary tracking-tight font-bold" id="bill-amount-display">75.000</span>
+</div>
+</div>
+</div>
+<!-- Tab Metode Pembayaran -->
+<div class="flex flex-col gap-1.5">
+<span class="text-label-sm font-label-sm text-secondary font-semibold">Pilih Metode Pembayaran</span>
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl gap-1">
+<button class="flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all font-semibold" id="tab-cash" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span>Tunai (Cash)</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-secondary hover:text-on-surface font-label-md text-label-md transition-all font-semibold" id="tab-qris" type="button">
+<span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+<span>QRIS / E-Wallet</span>
+</button>
+</div>
+</div>
+<!-- SECTION CASH INTERFACE -->
+<div class="flex flex-col gap-3" id="section-cash">
+<!-- 2. TOMBOL UANG PAS: RP 75.000 (UANG PAS) -> KEMBALIAN RP 0 -->
+<button class="quick-cash-btn w-full h-11 px-3.5 rounded-xl bg-primary-fixed/60 hover:bg-primary-fixed/70 border-2 border-primary text-on-primary-fixed flex items-center justify-between transition-all shadow-xs ring-2 ring-primary" data-cash="75000" id="btn-exact-cash" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-label-md font-label-md font-bold text-primary tracking-wide">UANG PAS (Rp 75.000)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary text-label-sm font-label-sm font-semibold">Kembalian Rp 0</span>
+<span class="text-currency-lg font-currency-lg font-bold text-primary">Rp 75.000</span>
+</div>
+</button>
+<!-- Pilihan Pecahan Uang Rupiah Indonesia Lengkap: 2k, 5k, 10k, 20k, 50k, 75k, 100k, 200k -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary font-semibold">Pecahan Uang Tunai (Rupiah)</span>
+<span class="text-label-sm font-label-sm text-primary font-semibold">Ketuk untuk memilih</span>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="2000" type="button">2.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="5000" type="button">5.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="10000" type="button">10.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="20000" type="button">20.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="50000" type="button">50.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-primary-fixed/40 border border-primary/30 text-primary font-bold font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="75000" type="button">75.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="100000" type="button">100.000</button>
+<button class="quick-cash-btn h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-currency-md text-currency-md flex items-center justify-center transition-all" data-cash="200000" type="button">200.000</button>
+</div>
+</div>
+<!-- Form Input Uang Diterima / Nominal Custom -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary font-semibold">Ketik Nominal Custom / Uang Lainnya</span>
+<span class="text-label-sm font-label-sm text-primary font-semibold">Uang Diterima</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest rounded-lg px-3 py-2 border border-surface-container focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="text-currency-lg font-currency-lg text-secondary font-bold">Rp</span>
+<input class="w-full bg-transparent text-currency-lg font-currency-lg text-on-surface font-bold focus:outline-none" id="input-cash" inputmode="numeric" placeholder="0" type="text" value="75.000"/>
+<button aria-label="Hapus input" class="text-secondary hover:text-on-surface p-1 flex items-center justify-center" id="clear-cash-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</div>
+<!-- HIGHLIGHT KOTAK KEMBALIAN KASIR (FIXED LOGIC: TOTAL 75.000, TERIMA 75.000 = KEMBALIAN RP 0) -->
+<div class="bg-primary-fixed/40 border border-primary/20 rounded-xl p-3.5 flex items-center justify-between shadow-sm transition-all" id="change-box">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary flex-shrink-0" id="change-icon-wrap">
+<span class="material-symbols-outlined text-[20px]" id="change-icon">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-primary-fixed uppercase tracking-wider font-bold" id="change-title">KEMBALIAN KASIR</span>
+<span class="text-body-sm font-body-sm text-on-primary-fixed-variant" id="change-note">Uang Pas • Tanpa kembalian</span>
+</div>
+</div>
+<div class="flex items-baseline gap-1" id="change-amount-container">
+<span class="text-headline-sm font-headline-sm font-bold text-primary" id="change-rp-label">Rp</span>
+<span class="text-currency-lg font-currency-lg font-bold text-primary tracking-tight" id="change-display">0</span>
+</div>
+</div>
+</div>
+<!-- SECTION QRIS (Hidden by default) -->
+<div class="hidden flex flex-col gap-3" id="section-qris">
+<div class="bg-surface-container-low rounded-2xl p-4 flex flex-col items-center gap-3">
+<div class="w-full flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+        QRIS Dinamis (Rp 75.000)
+      </div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Auto Sync Sheets
+      </div>
+</div>
+<div class="w-44 h-44 bg-surface-container-lowest rounded-2xl p-3 shadow-md flex items-center justify-center">
+<img class="w-full h-full object-contain" data-alt="QRIS Payment Code" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOwoMCCNXspjuu4UhGkNNetTRDYaP2AbG5TLKveDa-whjE_k5cfDYsg04SkpZZQ7VnUJIVOCjhwf6oNqbjzWMfH0ZWApWSmmNY--SjcnHQ3Yu5xTygjUeWgEecUVScJU1oEn_ybiLTn3TgC-s74Z_5Gzm7ywx8eHKJTOE51kXOLRjX_ooOUjNa3pgmkfGnR85ef19xpArlKfAM9EyT24TJOjCUL1i7LEhrjUnGl9nW"/>
+</div>
+<span class="text-body-sm font-body-sm text-secondary text-center">Scan otomatis ShopeePay, GoPay, OVO, Dana, atau Mobile Banking</span>
+</div>
+</div>
+<!-- Optional Customer / Catatan Meja -->
+<div class="flex items-center gap-2 bg-surface-container-low rounded-xl px-3 py-2 border border-surface-container/60">
+<span class="material-symbols-outlined text-secondary text-[18px]">person</span>
+<input class="w-full bg-transparent text-body-sm font-body-sm text-on-surface placeholder:text-secondary focus:outline-none" id="input-customer-note" placeholder="Nama Pelanggan / Catatan Transaksi (Opsional)" type="text"/>
+</div>
+<!-- Status Reset Info Banner -->
+<div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-on-surface-variant text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">sync</span>
+<span>Setelah bayar, data otomatis tersimpan ke Sheet &amp; kasir kembali ke Rp 0.</span>
+</div>
+<!-- Tombol Aksi Bawah -->
+<div class="flex flex-col gap-2 pt-0.5">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-105 active:scale-[0.99] transition-all" id="btn-submit-pay" type="button">
+<span class="material-symbols-outlined text-[20px]">print</span>
+<span>Konfirmasi Bayar &amp; Cetak Struk</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-10 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" id="btn-quick-pay" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Bayar Cepat (Tanpa Struk)</span>
+</button>
+<button class="h-10 rounded-xl bg-surface-container text-error hover:bg-error-container font-label-md text-label-md flex items-center justify-center gap-1 transition-colors" id="btn-cancel-pay" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span>Batalkan Transaksi</span>
+</button>
+</div>
+</div>
+</div><!-- end section-cart-active -->
+</div>
+</div>
+<!-- 4. MODAL DIALOG NOTIFIKASI SUKSES & ALUR RESET KE NOL -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-background/70 backdrop-blur-sm hidden animate-fade-in" id="modal-success">
+<div class="w-full max-w-sm bg-surface-container-lowest rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center gap-3 border border-primary/20">
+<div class="w-16 h-16 rounded-full bg-primary-fixed/60 flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">Pembayaran Berhasil!</span>
+<div class="inline-flex items-center justify-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed/40 text-primary text-label-sm font-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Sheets: Tersimpan Otomatis 🟢
+      </div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 w-full text-left flex flex-col gap-1.5 border border-surface-container">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-secondary">Nomor Struk:</span>
+<span class="font-bold text-on-surface" id="modal-trx-id">#TRX-8821</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-secondary">Total Belanja:</span>
+<span class="font-bold font-currency-md text-primary">Rp 75.000</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-secondary">Uang Diterima:</span>
+<span class="font-bold font-currency-md text-on-surface" id="modal-cash-received">Rp 75.000</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm pt-1 border-t border-surface-container">
+<span class="text-secondary">Kembalian:</span>
+<span class="font-bold font-currency-md text-primary" id="modal-change-received">Rp 0 (Uang Pas)</span>
+</div>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+      Transaksi #TRX-8821 tersimpan ke Sheets. Kasir di-reset ke Rp 0 untuk transaksi berikutnya.
+    </p>
+<div class="flex flex-col gap-2 w-full pt-2">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-md hover:brightness-105 active:scale-[0.98] transition-all" id="btn-new-trx" type="button">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+<span>Transaksi Baru (Reset ke 0)</span>
+</button>
+<button class="w-full h-10 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors" id="btn-reprint" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Cetak Ulang Struk Kasir</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    const tabCash = document.getElementById('tab-cash');
+    const tabQris = document.getElementById('tab-qris');
+    const secCash = document.getElementById('section-cash');
+    const secQris = document.getElementById('section-qris');
+    const inputCash = document.getElementById('input-cash');
+    const changeDisplay = document.getElementById('change-display');
+    const changeNote = document.getElementById('change-note');
+    const changeBox = document.getElementById('change-box');
+    const changeIcon = document.getElementById('change-icon');
+    const changeIconWrap = document.getElementById('change-icon-wrap');
+    const changeRpLabel = document.getElementById('change-rp-label');
+    const quickCashBtns = document.querySelectorAll('.quick-cash-btn');
+    const clearBtn = document.getElementById('clear-cash-btn');
+    const btnExactCash = document.getElementById('btn-exact-cash');
+    const btnSubmitPay = document.getElementById('btn-submit-pay');
+    const btnQuickPay = document.getElementById('btn-quick-pay');
+    const btnCancelPay = document.getElementById('btn-cancel-pay');
+    const modalSuccess = document.getElementById('modal-success');
+    const btnNewTrx = document.getElementById('btn-new-trx');
+    const stateToggleFilled = document.getElementById('state-toggle-filled');
+    const stateToggleEmpty = document.getElementById('state-toggle-empty');
+    const sectionCartActive = document.getElementById('section-cart-active');
+    const sectionEmptyCart = document.getElementById('section-empty-cart');
+    const btnBackToCashier = document.getElementById('btn-back-to-cashier');
+    const billAmountDisplay = document.getElementById('bill-amount-display');
+    const modalCashReceived = document.getElementById('modal-cash-received');
+    const modalChangeReceived = document.getElementById('modal-change-received');
+
+    // Target User: Total Tagihan Rp 75.000
+    let totalBill = 75000;
+
+    // Tab Switcher Logic
+    tabCash.addEventListener('click', function () {
+      tabCash.className = 'flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all font-semibold';
+      tabQris.className = 'flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-secondary hover:text-on-surface font-label-md text-label-md transition-all font-semibold';
+      secCash.classList.remove('hidden');
+      secQris.classList.add('hidden');
+    });
+
+    tabQris.addEventListener('click', function () {
+      tabQris.className = 'flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all font-semibold';
+      tabCash.className = 'flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-secondary hover:text-on-surface font-label-md text-label-md transition-all font-semibold';
+      secQris.classList.remove('hidden');
+      secCash.classList.add('hidden');
+    });
+
+    // Format & Calculate Change
+    function formatRp(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    function calculateChange(val) {
+      const rawNumber = parseInt(val.replace(/\D/g, ''), 10) || 0;
+      const change = rawNumber - totalBill;
+
+      if (change === 0) {
+        // UANG PAS -> Kembalian Rp 0
+        changeDisplay.textContent = '0';
+        changeRpLabel.style.display = 'inline';
+        changeNote.textContent = 'Uang Pas • Tanpa kembalian';
+        changeBox.className = 'bg-primary-fixed/40 border border-primary/20 rounded-xl p-3.5 flex items-center justify-between shadow-sm transition-all';
+        changeIconWrap.className = 'w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary flex-shrink-0';
+        changeIcon.textContent = 'check_circle';
+      } else if (change > 0) {
+        // Lebih -> Ada kembalian wajib diberikan
+        changeDisplay.textContent = formatRp(change);
+        changeRpLabel.style.display = 'inline';
+        changeNote.textContent = 'Wajib diserahkan ke pembeli';
+        changeBox.className = 'bg-primary-fixed/40 border border-primary/20 rounded-xl p-3.5 flex items-center justify-between shadow-sm transition-all';
+        changeIconWrap.className = 'w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary flex-shrink-0';
+        changeIcon.textContent = 'change_circle';
+      } else {
+        // Kurang
+        changeDisplay.textContent = 'Kurang ' + formatRp(Math.abs(change));
+        changeRpLabel.style.display = 'none';
+        changeNote.textContent = 'Nominal pembayaran belum cukup';
+        changeBox.className = 'bg-error-container/60 border border-error/20 rounded-xl p-3.5 flex items-center justify-between shadow-sm transition-all text-error';
+        changeIconWrap.className = 'w-9 h-9 rounded-full bg-error flex items-center justify-center text-on-error flex-shrink-0';
+        changeIcon.textContent = 'warning';
+      }
+    }
+
+    // Quick Cash Selection
+    quickCashBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        quickCashBtns.forEach(b => {
+          b.classList.remove('ring-2', 'ring-primary', 'bg-surface-container-high');
+        });
+        this.classList.add('ring-2', 'ring-primary');
+        const nominal = parseInt(this.getAttribute('data-cash'), 10);
+        inputCash.value = formatRp(nominal);
+        calculateChange(inputCash.value);
+      });
+    });
+
+    // Input manual listener
+    inputCash.addEventListener('input', function (e) {
+      let raw = e.target.value.replace(/\D/g, '');
+      if (raw) {
+        e.target.value = formatRp(raw);
+      } else {
+        e.target.value = '';
+      }
+      // Lepas highlight pecahan jika nominal berbeda
+      quickCashBtns.forEach(b => b.classList.remove('ring-2', 'ring-primary'));
+      calculateChange(e.target.value);
+    });
+
+    clearBtn.addEventListener('click', function () {
+      inputCash.value = '';
+      calculateChange('0');
+      inputCash.focus();
+    });
+
+    // Trigger initial calculation (Default: Rp 75.000 -> Kembalian 0)
+    calculateChange(inputCash.value);
+
+    // Dialog Modal Sukses & Reset Flow
+    function completePayment() {
+      const enteredVal = inputCash.value || '75.000';
+      const rawNum = parseInt(enteredVal.replace(/\D/g, ''), 10) || 0;
+      modalCashReceived.textContent = 'Rp ' + formatRp(rawNum);
+      const chg = rawNum - totalBill;
+      if (chg <= 0) {
+        modalChangeReceived.textContent = 'Rp 0 (Uang Pas)';
+      } else {
+        modalChangeReceived.textContent = 'Rp ' + formatRp(chg);
+      }
+      modalSuccess.classList.remove('hidden');
+    }
+
+    btnSubmitPay.addEventListener('click', completePayment);
+    btnQuickPay.addEventListener('click', completePayment);
+
+    // Transaksi Baru -> Reset ke 0
+    btnNewTrx.addEventListener('click', function () {
+      modalSuccess.classList.add('hidden');
+      // Kosongkan keranjang & reset kasir ke 0
+      totalBill = 0;
+      billAmountDisplay.textContent = '0';
+      inputCash.value = '0';
+      calculateChange('0');
+      // Switch view to empty state
+      sectionCartActive.classList.add('hidden');
+      sectionEmptyCart.classList.remove('hidden');
+      stateToggleEmpty.className = 'px-2 py-1 rounded bg-surface-container-lowest text-primary font-bold shadow-xs transition-all';
+      stateToggleFilled.className = 'px-2 py-1 rounded text-secondary hover:text-on-surface transition-all';
+    });
+
+    // Demo Switcher: Ada Item vs Kosong
+    stateToggleEmpty.addEventListener('click', function () {
+      sectionCartActive.classList.add('hidden');
+      sectionEmptyCart.classList.remove('hidden');
+      stateToggleEmpty.className = 'px-2 py-1 rounded bg-surface-container-lowest text-primary font-bold shadow-xs transition-all';
+      stateToggleFilled.className = 'px-2 py-1 rounded text-secondary hover:text-on-surface transition-all';
+    });
+
+    function restoreFilledState() {
+      totalBill = 75000;
+      billAmountDisplay.textContent = '75.000';
+      inputCash.value = '75.000';
+      calculateChange('75.000');
+      sectionCartActive.classList.remove('hidden');
+      sectionEmptyCart.classList.add('hidden');
+      stateToggleFilled.className = 'px-2 py-1 rounded bg-surface-container-lowest text-primary font-bold shadow-xs transition-all';
+      stateToggleEmpty.className = 'px-2 py-1 rounded text-secondary hover:text-on-surface transition-all';
+      if (btnExactCash) {
+        btnExactCash.classList.add('ring-2', 'ring-primary');
+      }
+    }
+
+    stateToggleFilled.addEventListener('click', restoreFilledState);
+    btnBackToCashier.addEventListener('click', restoreFilledState);
+
+    btnCancelPay.addEventListener('click', function () {
+      if (confirm('Batalkan transaksi saat ini dan kembali ke kasir?')) {
+        sectionCartActive.classList.add('hidden');
+        sectionEmptyCart.classList.remove('hidden');
+        stateToggleEmpty.className = 'px-2 py-1 rounded bg-surface-container-lowest text-primary font-bold shadow-xs transition-all';
+        stateToggleFilled.className = 'px-2 py-1 rounded text-secondary hover:text-on-surface transition-all';
+      }
+    });
+
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-label-md [&amp;_span.indicator]:w-4 [&amp;_span.indicator]:opacity-100"><div class="flex items-center justify-around h-16 px-space-xs"><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-primary font-label-md transition-all" data-path="kasir" href="#"><span class="material-symbols-outlined text-[24px]">point_of_sale</span><span class="text-label-sm font-label-sm tracking-tight">Kasir</span><span class="indicator w-4 h-1 rounded-full bg-primary opacity-100 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="barang-masuk" href="#"><span class="material-symbols-outlined text-[24px]">move_to_inbox</span><span class="text-label-sm font-label-sm tracking-tight">Barang Masuk</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="rekapan" href="#"><span class="material-symbols-outlined text-[24px]">query_stats</span><span class="text-label-sm font-label-sm tracking-tight">Rekapan</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="katalog-&amp;-sync" href="#"><span class="material-symbols-outlined text-[24px]">table_chart</span><span class="text-label-sm font-label-sm tracking-tight">Katalog &amp; Sync</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a></div></nav>
+</body></html>

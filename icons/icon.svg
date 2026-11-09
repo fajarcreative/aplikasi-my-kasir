@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00855d" />
+      <stop offset="100%" stop-color="#006948" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#eff4ff" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#002114" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- App Rounded Icon Body -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGrad)" />
+  
+  <!-- Subtle circular backdrop -->
+  <circle cx="256" cy="256" r="190" fill="#ffffff" opacity="0.08" />
+
+  <!-- Cash Register Illustration -->
+  <g filter="url(#shadow)" transform="translate(0, 10)">
+    <!-- Base / Cash Drawer -->
+    <rect x="110" y="290" width="292" height="110" rx="18" fill="#ffffff" />
+    <!-- Drawer line & handle -->
+    <line x1="130" y1="350" x2="382" y2="350" stroke="#bccac0" stroke-width="3" stroke-linecap="round" />
+    <circle cx="256" cy="370" r="12" fill="#006948" />
+
+    <!-- Screen Stand -->
+    <rect x="238" y="240" width="36" height="56" fill="#e5eeff" />
+
+    <!-- Display Screen -->
+    <rect x="156" y="130" width="200" height="120" rx="14" fill="#0b1c30" stroke="#ffffff" stroke-width="6" />
+    <!-- Screen Glare / Display Content -->
+    <rect x="176" y="152" width="160" height="28" rx="6" fill="#00855d" />
+    <rect x="186" y="162" width="80" height="8" rx="4" fill="#85f8c4" />
+    <circle cx="316" cy="166" r="4" fill="#85f8c4" />
+    
+    <!-- Mini keypad buttons on base -->
+    <rect x="136" y="308" width="28" height="22" rx="4" fill="#cbdbf5" />
+    <rect x="174" y="308" width="28" height="22" rx="4" fill="#cbdbf5" />
+    <rect x="212" y="308" width="28" height="22" rx="4" fill="#cbdbf5" />
+    <rect x="250" y="308" width="28" height="22" rx="4" fill="#cbdbf5" />
+    <rect x="288" y="308" width="28" height="22" rx="4" fill="#cbdbf5" />
+    <rect x="326" y="308" width="50" height="22" rx="4" fill="#85f8c4" />
+  </g>
+
+  <!-- Spreadsheet grid accent tag in top right -->
+  <g transform="translate(320, 70)">
+    <rect width="110" height="52" rx="12" fill="#2170e4" stroke="#ffffff" stroke-width="4" filter="url(#shadow)" />
+    <!-- Spreadsheet table rows -->
+    <line x1="20" y1="26" x2="90" y2="26" stroke="#ffffff" stroke-width="2" />
+    <line x1="55" y1="12" x2="55" y2="40" stroke="#ffffff" stroke-width="2" />
+  </g>
+</svg>

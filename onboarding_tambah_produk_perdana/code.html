@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#68dba9", "surface-container-highest": "#d3e4fe", "secondary-fixed": "#dae2fd", "primary-container": "#00855d", "surface-container-high": "#dce9ff", "surface": "#f8f9ff", "secondary-fixed-dim": "#bec6e0", "surface-dim": "#cbdbf5", "on-tertiary-fixed-variant": "#004395", "on-tertiary-container": "#fefcff", "tertiary-fixed-dim": "#adc6ff", "on-error": "#ffffff", "on-surface": "#0b1c30", "outline-variant": "#bccac0", "primary-fixed-dim": "#68dba9", "surface-container-low": "#eff4ff", "on-tertiary": "#ffffff", "primary-fixed": "#85f8c4", "outline": "#6d7a72", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#001a42", "tertiary": "#0058be", "on-primary-fixed-variant": "#005137", "secondary": "#565e74", "background": "#f8f9ff", "surface-bright": "#f8f9ff", "tertiary-fixed": "#d8e2ff", "inverse-on-surface": "#eaf1ff", "surface-tint": "#006c4a", "surface-container": "#e5eeff", "on-surface-variant": "#3d4a42", "primary": "#006948", "secondary-container": "#dae2fd", "on-secondary-fixed-variant": "#3f465c", "on-secondary": "#ffffff", "tertiary-container": "#2170e4", "error-container": "#ffdad6", "error": "#ba1a1a", "on-secondary-fixed": "#131b2e", "on-primary": "#ffffff", "on-error-container": "#93000a", "surface-variant": "#d3e4fe", "on-background": "#0b1c30", "on-primary-fixed": "#002114", "inverse-surface": "#213145", "on-secondary-container": "#5c647a", "on-primary-container": "#f5fff7" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin": "1rem", "space-lg": "1.5rem", "margin-tablet": "1.5rem", "gutter-sm": "0.75rem", "space-md": "1rem" }, fontFamily: { "display-lg": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "currency-lg": ["JetBrains Mono"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "currency-md": ["JetBrains Mono"], "body-sm": ["Plus Jakarta Sans"], "currency-display": ["JetBrains Mono"] }, fontSize: { "display-lg": ["36px", { "lineHeight": "44px", "fontWeight": "700" }], "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "display-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }], "currency-lg": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "currency-md": ["15px", { "lineHeight": "20px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "currency-display": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-20 px-margin flex flex-col justify-center gap-1"><div class="flex items-center justify-between w-full"><div class="flex items-center gap-space-xs"><button aria-label="Kembali ke Panduan Setup" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col"><span class="font-label-sm text-label-sm text-primary tracking-wide">PANDUAN SETUP TOKO</span><h1 class="font-headline-sm text-headline-sm text-on-surface">Tambah Produk Perdana</h1></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div><div class="w-full flex items-center gap-space-sm pl-12 pr-1"><div class="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full transition-all duration-300 w-1/2"></div></div><span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Langkah 1 dari 2</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-safe bg-surface"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-xl flex flex-col gap-space-lg">
+<!-- Hero / Empty State Welcome Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary-fixed/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+              Katalog: 0 Produk
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">
+              Langkah 1/2
+            </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tambah Produk Perdana Anda</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Cukup masukkan 1 barang jualan untuk mengaktifkan meja kasir digital dan memulai pencatatan laba otomatis.
+          </p>
+</div>
+</div>
+<!-- Live Sync Status Banner -->
+<div class="rounded-lg bg-surface-container-low p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">cloud_sync</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Tersambung ke Google Sheets</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Tab: <code class="font-currency-md text-primary">Katalog_Master</code></span>
+</div>
+</div>
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+</div>
+</div>
+<!-- Quick Start Presets Section -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">bolt</span>
+          PILIH CONTOH CEPAT (1-KLIK)
+        </label>
+<span class="font-body-sm text-body-sm text-primary">Untuk Toko Retail</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Klik contoh barang di bawah untuk mengisi formulir secara instan:</p>
+<div class="flex flex-col gap-2 pt-1" id="preset-container">
+<!-- Preset Item 1 -->
+<button class="group flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-left transition-all shadow-sm active:scale-[0.99]" onclick="applyPreset('Pita Jepit Rambut Lucu', 'Aksesoris', '15000', '8000', 25, 'ACC-001')" type="button">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">style</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Pita Jepit Rambut Pastel</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Kategori: Aksesoris • Stok 25</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 shrink-0">
+<span class="font-currency-md text-currency-md text-primary">Rp 15.000</span>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:translate-x-0.5 transition-transform">add_circle</span>
+</div>
+</button>
+<!-- Preset Item 2 -->
+<button class="group flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-left transition-all shadow-sm active:scale-[0.99]" onclick="applyPreset('Kotak Pensil 3D Karakter', 'ATK Sekolah', '35000', '22000', 15, 'ATK-042')" type="button">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">draw</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Kotak Pensil 3D Timbul</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Kategori: ATK Sekolah • Stok 15</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 shrink-0">
+<span class="font-currency-md text-currency-md text-primary">Rp 35.000</span>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:translate-x-0.5 transition-transform">add_circle</span>
+</div>
+</button>
+<!-- Preset Item 3 -->
+<button class="group flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-left transition-all shadow-sm active:scale-[0.99]" onclick="applyPreset('Kerudung Bella Square Premium', 'Kerudung / Hijab', '25000', '15000', 30, 'HJB-101')" type="button">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">checkroom</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Kerudung Bella Square</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Kategori: Kerudung • Stok 30</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 shrink-0">
+<span class="font-currency-md text-currency-md text-primary">Rp 25.000</span>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:translate-x-0.5 transition-transform">add_circle</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Form Section -->
+<form class="flex flex-col gap-space-lg" id="product-form" onsubmit="event.preventDefault(); submitForm();">
+<!-- Visual Uploader Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+<label class="font-label-md text-label-md text-on-surface">Foto Produk (Opsional)</label>
+<div class="w-full rounded-xl bg-surface-container-low p-space-md flex flex-col items-center justify-center text-center relative cursor-pointer hover:bg-surface-container transition-colors" id="photo-upload-box" onclick="togglePhotoUploaded()">
+<div class="flex flex-col items-center gap-2" id="photo-placeholder">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">add_a_photo</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Ketuk untuk Mengambil Foto</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">atau pilih dari Galeri Handphone</span>
+</div>
+<span class="mt-1 px-3 py-1 bg-surface-container-lowest rounded-full font-label-sm text-label-sm text-primary shadow-sm">
+              Gunakan Icon Bawaan Toko
+            </span>
+</div>
+<div class="hidden flex-col items-center gap-2" id="photo-active">
+<div class="w-20 h-20 rounded-xl overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="High-resolution close-up product photograph of cute pastel hair clips and aesthetic stationery displayed on a soft minimalist wooden counter under bright clean retail lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTC2PELWfKNPul37_uCLYlUYqFi0VNIX3Snu_OYCFLHOoDqA5g4G8F40NttAxgCKHDH2ioNtpxF1whUPtbMK45wVtFQzTg82t2M6U6KqSzgTdTA0GlPVAv9ZkAxULxMT4Fn7HsapcOT1br6O2UMb_04LI6e-2fqGRToCEalOMFTtL3p5O5Jj_rZYCH1uTOoVto2gVEnOFD0r3shBkd8OcUUQVsaWaypLbZ7xNE-Xyf"/>
+</div>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Foto Terpasang (Ganti)
+            </span>
+</div>
+</div>
+</div>
+<!-- Core Form Fields -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+<!-- Product Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="product-name">
+<span>Nama Produk <span class="text-error">*</span></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Wajib diisi</span>
+</label>
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container-highest transition-colors" id="product-name" placeholder="Contoh: Bando Mutiara Blink / Kotak Pensil 3D" required="" type="text"/>
+</div>
+<!-- Product Category Chips -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Kategori Barang</label>
+<div class="flex flex-wrap gap-2" id="category-chips">
+<button class="category-chip px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all" onclick="selectCategory('Aksesoris', this)" type="button">Aksesoris</button>
+<button class="category-chip px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" onclick="selectCategory('ATK Sekolah', this)" type="button">ATK Sekolah</button>
+<button class="category-chip px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" onclick="selectCategory('Kerudung / Hijab', this)" type="button">Kerudung / Hijab</button>
+<button class="category-chip px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" onclick="selectCategory('Souvenir', this)" type="button">Souvenir</button>
+</div>
+<input id="selected-category" type="hidden" value="Aksesoris"/>
+</div>
+<!-- Pricing (Sale & Cost) -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Sale Price -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="sale-price">Harga Jual <span class="text-error">*</span></label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-currency-md text-currency-md text-primary font-bold">Rp</span>
+<input class="w-full h-12 pl-10 pr-3 rounded-xl bg-surface-container-low font-currency-md text-currency-md text-on-surface focus:outline-none focus:bg-surface-container-highest transition-colors" id="sale-price" oninput="calculateProfit()" placeholder="25.000" required="" type="number"/>
+</div>
+</div>
+<!-- Cost Price / Modal -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant" for="cost-price">Harga Kulak (Modal)</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-currency-md text-currency-md text-outline">Rp</span>
+<input class="w-full h-12 pl-10 pr-3 rounded-xl bg-surface-container-low font-currency-md text-currency-md text-on-surface focus:outline-none focus:bg-surface-container-highest transition-colors" id="cost-price" oninput="calculateProfit()" placeholder="15.000" type="number"/>
+</div>
+</div>
+</div>
+<!-- Dynamic Profit Margin Badge -->
+<div class="rounded-xl bg-primary/10 p-space-sm flex items-center justify-between" id="profit-badge">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">trending_up</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">Estimasi Laba Bersih</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="profit-text">Rp 10.000 per transaksi (+66.7%)</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold" id="margin-percent">+66%</span>
+</div>
+<!-- Initial Stock with Stepper -->
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<label class="font-label-md text-label-md text-on-surface">Jumlah Stok Awal</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bisa diubah kapan saja</span>
+</div>
+<div class="flex items-center bg-surface-container-low rounded-xl p-1 gap-1">
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-95 transition-transform" onclick="adjustStock(-1)" type="button">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent font-currency-md text-currency-md text-on-surface focus:outline-none" id="initial-stock" min="1" type="number" value="20"/>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-95 transition-transform" onclick="adjustStock(1)" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Optional Barcode / SKU with Shortcut -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="product-sku">Kode Barcode / SKU</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Opsional</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative flex-1">
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-low font-currency-md text-currency-md text-on-surface focus:outline-none focus:bg-surface-container-highest transition-colors" id="product-sku" placeholder="Scan / ketik barcode" type="text"/>
+</div>
+<button class="h-12 px-4 rounded-xl bg-surface-container text-primary flex items-center gap-1.5 hover:bg-surface-container-high transition-colors font-label-md text-label-md shrink-0 shadow-sm" onclick="simulateScanBarcode()" type="button">
+<span class="material-symbols-outlined text-[20px]">barcode_scanner</span>
+<span>Scan</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Real-Time Sync Assurance Notice -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">table_chart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Otomatisasi Spreadsheet Seketika</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Saat tombol disimpan ditekan, item ini langsung dicatat ke baris ke-2 Google Sheets Anda dan tampil di layar Kasir POS tanpa perlu reload.
+          </p>
+</div>
+</div>
+<!-- Action Buttons Container -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Primary Action: Save and Go to POS -->
+<button class="w-full h-12 bg-primary hover:bg-primary/90 text-on-primary rounded-xl font-label-md text-label-md font-bold flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-all" type="submit">
+<span>Simpan &amp; Buka Kasir POS</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Action: Save & Add Another -->
+<button class="w-full h-12 bg-surface-container-lowest hover:bg-surface-container text-on-surface rounded-xl font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-[0.98]" onclick="saveAndAddAnother()" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary">add</span>
+<span>Simpan &amp; Tambah Barang Lain</span>
+</button>
+<!-- Skip CTA -->
+<button class="w-full py-2.5 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" onclick="skipToEmptyPOS()" type="button">
+          Lewati panduan &amp; Masuk Kasir Kosong
+        </button>
+</div>
+</form>
+</div>
+<!-- Micro-Notification Toast (Hidden by Default) -->
+<div class="fixed bottom-6 left-4 right-4 z-50 transform translate-y-32 transition-transform duration-300 pointer-events-none" id="toast">
+<div class="bg-inverse-surface text-inverse-on-surface p-4 rounded-xl shadow-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold" id="toast-title">Berhasil Tersimpan!</span>
+<span class="font-body-sm text-body-sm text-surface-variant text-[11px]" id="toast-msg">1 Produk berhasil disinkronkan ke Sheets</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-surface-variant text-[18px]">close</span>
+</div>
+</div>
+</div>
+<script>
+  function applyPreset(name, category, sale, cost, stock, sku) {
+    document.getElementById('product-name').value = name;
+    document.getElementById('sale-price').value = sale;
+    document.getElementById('cost-price').value = cost;
+    document.getElementById('initial-stock').value = stock;
+    document.getElementById('product-sku').value = sku;
+    
+    // Select Category
+    const chips = document.querySelectorAll('.category-chip');
+    chips.forEach(chip => {
+      if(chip.innerText.trim() === category) {
+        selectCategory(category, chip);
+      }
+    });
+
+    calculateProfit();
+    togglePhotoUploaded(true);
+    showToast('Template ' + name + ' Diterapkan!', 'Data form telah terisi otomatis');
+  }
+
+  function selectCategory(cat, element) {
+    document.getElementById('selected-category').value = cat;
+    const chips = document.querySelectorAll('.category-chip');
+    chips.forEach(chip => {
+      chip.className = 'category-chip px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all';
+    });
+    element.className = 'category-chip px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all';
+  }
+
+  function adjustStock(amount) {
+    const stockInput = document.getElementById('initial-stock');
+    let val = parseInt(stockInput.value) || 0;
+    val += amount;
+    if (val < 1) val = 1;
+    stockInput.value = val;
+  }
+
+  function calculateProfit() {
+    const sale = parseFloat(document.getElementById('sale-price').value) || 0;
+    const cost = parseFloat(document.getElementById('cost-price').value) || 0;
+    const profitText = document.getElementById('profit-text');
+    const marginBadge = document.getElementById('margin-percent');
+    
+    if (sale > 0) {
+      const profit = sale - cost;
+      const margin = cost > 0 ? ((profit / cost) * 100).toFixed(1) : 100;
+      
+      profitText.textContent = 'Rp ' + profit.toLocaleString('id-ID') + ' per item (' + (profit >= 0 ? '+' : '') + margin + '%)';
+      marginBadge.textContent = (profit >= 0 ? '+' : '') + Math.round(margin) + '%';
+      
+      if (profit < 0) {
+        marginBadge.className = 'px-2 py-0.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold';
+      } else {
+        marginBadge.className = 'px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold';
+      }
+    } else {
+      profitText.textContent = 'Masukkan harga jual & modal untuk melihat laba';
+      marginBadge.textContent = '0%';
+    }
+  }
+
+  function togglePhotoUploaded(force = false) {
+    const placeholder = document.getElementById('photo-placeholder');
+    const active = document.getElementById('photo-active');
+    if (force || placeholder.classList.contains('flex')) {
+      placeholder.classList.add('hidden');
+      placeholder.classList.remove('flex');
+      active.classList.remove('hidden');
+      active.classList.add('flex');
+    } else {
+      active.classList.add('hidden');
+      active.classList.remove('flex');
+      placeholder.classList.remove('hidden');
+      placeholder.classList.add('flex');
+    }
+  }
+
+  function simulateScanBarcode() {
+    const randomCode = 'SETYA-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('product-sku').value = randomCode;
+    showToast('Barcode Terdeteksi!', randomCode);
+  }
+
+  function showToast(title, msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-title').innerText = title;
+    document.getElementById('toast-msg').innerText = msg;
+    toast.classList.remove('translate-y-32');
+    toast.classList.add('translate-y-0');
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0');
+      toast.classList.add('translate-y-32');
+    }, 3000);
+  }
+
+  function submitForm() {
+    const name = document.getElementById('product-name').value;
+    if(!name) {
+      alert('Silakan lengkapi nama produk terlebih dahulu');
+      return;
+    }
+    showToast('Menyimpan ke Google Sheets...', 'Menuju ke Kasir POS');
+    setTimeout(() => {
+      window.location.hash = '#kasir-pos';
+    }, 1200);
+  }
+
+  function saveAndAddAnother() {
+    const name = document.getElementById('product-name').value;
+    if(!name) {
+      alert('Silakan ketik atau pilih produk terlebih dahulu');
+      return;
+    }
+    showToast('Produk Disimpan ke Sheets!', 'Formulir siap untuk barang ke-2');
+    document.getElementById('product-name').value = '';
+    document.getElementById('sale-price').value = '';
+    document.getElementById('cost-price').value = '';
+    document.getElementById('product-sku').value = '';
+    togglePhotoUploaded(false);
+    calculateProfit();
+  }
+
+  function skipToEmptyPOS() {
+    if(confirm('Yakin ingin lewati? Anda tetap bisa menambah produk langsung dari layar kasir.')) {
+      showToast('Membuka Kasir POS...', 'Katalog masih kosong');
+      setTimeout(() => {
+        window.location.hash = '#kasir-pos';
+      }, 800);
+    }
+  }
+
+  // Initial Calculation
+  calculateProfit();
+</script></main></body></html>

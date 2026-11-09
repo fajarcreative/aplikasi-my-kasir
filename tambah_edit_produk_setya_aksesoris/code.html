@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#d3e4fe", "error-container": "#ffdad6", "tertiary-container": "#2170e4", "on-secondary": "#ffffff", "surface-tint": "#006c4a", "surface-bright": "#f8f9ff", "surface-container-highest": "#d3e4fe", "on-tertiary-fixed": "#001a42", "on-surface-variant": "#3d4a42", "inverse-on-surface": "#eaf1ff", "secondary-container": "#dae2fd", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "background": "#f8f9ff", "outline-variant": "#bccac0", "on-error-container": "#93000a", "on-error": "#ffffff", "primary-fixed": "#85f8c4", "surface-container": "#e5eeff", "on-primary-container": "#f5fff7", "on-primary-fixed": "#002114", "on-secondary-fixed": "#131b2e", "tertiary-fixed": "#d8e2ff", "on-primary": "#ffffff", "surface": "#f8f9ff", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "tertiary": "#0058be", "on-secondary-container": "#5c647a", "on-secondary-fixed-variant": "#3f465c", "inverse-surface": "#213145", "outline": "#6d7a72", "secondary-fixed": "#dae2fd", "secondary": "#565e74", "on-tertiary-fixed-variant": "#004395", "surface-container-high": "#dce9ff", "on-tertiary-container": "#fefcff", "secondary-fixed-dim": "#bec6e0", "tertiary-fixed-dim": "#adc6ff", "on-background": "#0b1c30", "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-primary-fixed-variant": "#005137", "on-surface": "#0b1c30", "inverse-primary": "#68dba9", "primary": "#006948", "surface-container-low": "#eff4ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin": "1rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "margin-tablet": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "currency-display": ["JetBrains Mono"], "currency-lg": ["JetBrains Mono"], "display-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "currency-md": ["JetBrains Mono"], "label-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "currency-display": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "currency-lg": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }], "display-lg": ["36px", { "lineHeight": "44px", "fontWeight": "700" }], "currency-md": ["15px", { "lineHeight": "20px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="My Kasir Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3K4CT1f9ICUZBvxy4T7gawCh2Hbs-qK4IYx2rLHGZYUpUbPim1YQlwN7qrKkqCnPe022tO2RcIgyXgMCfYmejVhSzkZPpqqZWaUrctf2GdwaAaYS5_aebe2WcQ2ejtdj8I7_pfxO3mo_RE_ZTkAnI4urq2B3VQ7afO-PUlIgSqK3SW5DZqEk7GAlvkijLQSxQF4jEJqTuHg2RyLrEzJdXOWx20yq6s-KDEBsoel3l"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5"><span class="text-label-md font-label-md text-on-surface truncate">Toko Berkah Makmur</span></div><div class="flex items-center gap-1.5 mt-0.5"><div class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary-fixed/40"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span class="text-label-sm font-label-sm text-primary tracking-tight whitespace-nowrap">Spreadsheet: Terhubung 🟢</span></div></div></div></div><div class="flex items-center gap-space-sm flex-shrink-0"><button aria-label="Buka Profil" class="relative p-0.5 rounded-full flex items-center justify-center min-w-[44px] min-h-[44px]" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmcSnQgh6KNOQE9jqtAFbZ2pDVsoUREArYTWm7-4tF7BMZsnRZkT0cM05BC6rK6qf88InZbjy6TNRYb14SAghwY1WQWbDOUC9-bv16UeJj1haBavICHxCp9THWQZLsYKgd8EYDSZ-OThDrvsS4baGFNBnvBNz7O_MhYebTqIVJc3zlYdsv_1XZe_q5dx0_Et-NOlfPSNiATl8hJjbmY5Z_lLXC78Gd2K-EjzKHL_qI"/></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive Form Container -->
+<div class="px-margin pt-space-md pb-32 flex flex-col gap-space-lg max-w-md mx-auto w-full">
+<!-- Top Action & Title Context -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<button aria-label="Kembali" class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<div class="flex flex-col min-w-0">
+<h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Tambah / Edit Produk</h1>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[14px]">sync_alt</span>
+<p class="font-label-sm text-label-sm text-secondary truncate">Sync: <span class="font-bold text-primary font-currency-md">Katalog_Master</span></p>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-secondary text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+        Online
+      </span>
+</div>
+<!-- Segmented Tab Toggle -->
+<div class="p-1 rounded-xl bg-surface-container-low flex items-center shadow-sm">
+<button class="flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1.5" id="tab-new" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+        Produk Baru
+      </button>
+<button class="flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5" id="tab-edit" type="button">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+        Edit Produk Ada
+      </button>
+</div>
+<!-- Edit Search Bar (Hidden by default, toggled via JS) -->
+<div class="hidden flex-col gap-2 p-3 rounded-xl bg-secondary-container/30" id="search-existing-wrapper">
+<label class="font-label-sm text-label-sm text-secondary">Cari Produk dari Google Sheets</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[20px]">search</span>
+<input class="w-full pl-10 pr-3 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-0 shadow-sm" placeholder="Ketik nama atau scan barcode..." type="text"/>
+</div>
+</div>
+<!-- Section 1: Identitas Produk -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+          Identitas Produk
+        </span>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container-low px-2 py-0.5 rounded-full">Wajib Diisi</span>
+</div>
+<!-- SKU & Barcode Scanner -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="sku-input">Kode SKU / Barcode</label>
+<div class="flex gap-2">
+<div class="relative flex-1">
+<input class="w-full px-3.5 py-3 rounded-xl bg-surface-container-low text-on-surface font-currency-md text-currency-md uppercase tracking-wide focus:outline-none focus:bg-surface-container transition-colors" id="sku-input" placeholder="Misal: STY-AK-001" type="text" value="STY-AK-001"/>
+</div>
+<button aria-label="Scan Barcode Kamera" class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center hover:opacity-95 active:scale-95 transition-transform shadow-sm" id="btn-scan" type="button">
+<span class="material-symbols-outlined text-[24px]">qr_code_scanner</span>
+</button>
+</div>
+</div>
+<!-- Product Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="name-input">Nama Produk</label>
+<input class="w-full px-3.5 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container transition-colors" id="name-input" placeholder="Contoh: Kerudung Bella Square Anak" type="text" value="Kotak Pensil Susun Karakter Sanrio"/>
+</div>
+<!-- Category Chips -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Kategori Aksesoris</label>
+<div class="flex flex-wrap gap-2" id="category-chips">
+<button class="category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-surface-container-low text-secondary" data-cat="Aksesoris Rambut &amp; Perhiasan Anak" type="button">
+            🎀 Aksesoris &amp; Perhiasan
+          </button>
+<button class="category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-primary text-on-primary font-bold shadow-sm" data-cat="ATK &amp; Perlengkapan Sekolah" type="button">
+            ✏️ ATK &amp; Sekolah
+          </button>
+<button class="category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-surface-container-low text-secondary" data-cat="Kerudung &amp; Hijab Anak" type="button">
+            🧕 Kerudung Anak
+          </button>
+<button class="category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-surface-container-low text-secondary" data-cat="Tumbler &amp; Botol Minum" type="button">
+            💧 Botol Minum
+          </button>
+<button class="category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-surface-container-low text-secondary" data-cat="Mainan &amp; Pernik-Pernik" type="button">
+            🧸 Mainan &amp; Pernik
+          </button>
+</div>
+</div>
+</div>
+<!-- Section 2: Visual & Media -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">photo_library</span>
+          Foto Produk
+        </span>
+<span class="font-label-sm text-label-sm text-secondary">Rasio 1:1</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Live Image Preview Placeholder -->
+<div class="relative w-24 h-24 rounded-2xl overflow-hidden shadow-inner flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up whimsical cute pastel pink and mint Sanrio stationery pencil case on a clean retail shelf, bright cheerful lighting, soft studio product photography, aesthetic kid accessories display with glitter stickers and pastel badges" id="product-preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE-cw4KQp4eNF2xu0-9zph6U-wK-te3oYlRIIlQfmEipPGa48c14w5186ktGzD5TcYBYbjxrZsNUuni72dUZKJrUyJYaW_xQsIv-QiXuV_fjhC5lno0DRswwOpUOggAx4o3NN6lEvUJOlU0n45gYcUglMGl7q-n5Uu-scwzltHxryP-afWU7sMZLFGPO1fSDcbzFsj6Bkw0lOKpFteWuzlm1oW0adIqBXfUaNsvgar"/>
+<div class="absolute bottom-1 right-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded-md text-[10px] font-bold text-primary shadow-sm">
+            Live
+          </div>
+</div>
+<!-- Upload Controls -->
+<div class="flex-1 flex flex-col gap-2">
+<button class="w-full py-2.5 px-3 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-primary text-[18px]">add_a_photo</span>
+            Ambil / Unggah Foto
+          </button>
+<div class="relative">
+<input class="w-full px-3 py-2 text-xs rounded-lg bg-surface-container-low text-secondary font-body-sm focus:outline-none focus:text-on-surface" id="img-url-input" placeholder="Atau tempel URL gambar..." type="text" value="https://img.tokopedia.net/sanrio-pencil-box.webp"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Penetapan Harga & Kalkulator Margin -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+          Harga &amp; Margin Keuntungan
+        </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-tertiary">
+<span class="material-symbols-outlined text-[14px]">calculate</span>
+          Auto-calc
+        </span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- HPP Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-secondary" for="hpp-input">Harga Modal (HPP)</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-currency-md text-label-sm text-outline">Rp</span>
+<input class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-currency-md text-currency-md focus:outline-none focus:bg-surface-container font-bold" id="hpp-input" type="number" value="18000"/>
+</div>
+</div>
+<!-- Selling Price Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface font-bold" for="price-input">Harga Jual Toko</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-currency-md text-label-sm text-primary font-bold">Rp</span>
+<input class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-surface-container-low text-primary font-currency-md text-currency-md focus:outline-none focus:bg-surface-container font-bold" id="price-input" type="number" value="28000"/>
+</div>
+</div>
+</div>
+<!-- Realtime Profit Margin Visual Badge -->
+<div class="p-3.5 rounded-xl bg-primary-fixed/30 flex items-center justify-between transition-colors" id="margin-card">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Margin Keuntungan Bersih</span>
+<span class="font-currency-md text-currency-md text-primary font-bold" id="margin-nominal">Rp 10.000 / item</span>
+</div>
+</div>
+<div class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-currency-md text-label-md font-bold" id="margin-percent">
+          +35.7%
+        </div>
+</div>
+</div>
+<!-- Section 4: Inventori & Satuan -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+          Kontrol Stok Produk
+        </span>
+<span class="material-symbols-outlined text-outline text-[18px]">info</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Current Stock -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface" for="stock-input">Stok Awal</label>
+<div class="flex items-center bg-surface-container-low rounded-xl px-2">
+<button class="w-8 h-10 flex items-center justify-center text-secondary hover:text-on-surface font-bold text-lg active:scale-95" id="stock-dec" type="button">-</button>
+<input class="w-full text-center bg-transparent py-2.5 text-on-surface font-currency-md text-currency-md font-bold focus:outline-none" id="stock-input" type="number" value="24"/>
+<button class="w-8 h-10 flex items-center justify-center text-primary hover:text-primary-container font-bold text-lg active:scale-95" id="stock-inc" type="button">+</button>
+</div>
+</div>
+<!-- Min Stock Alert -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-secondary" for="min-stock-input">Batas Kritis</label>
+<span class="text-[10px] text-error font-label-sm">Alert</span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-currency-md text-currency-md focus:outline-none focus:bg-surface-container" id="min-stock-input" type="number" value="5"/>
+<span class="absolute right-3 font-label-sm text-label-sm text-secondary">pcs</span>
+</div>
+</div>
+</div>
+<!-- Satuan Jual Chips -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-secondary">Satuan Penjualan</label>
+<div class="grid grid-cols-4 gap-2" id="unit-chips">
+<button class="unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-primary text-on-primary font-bold shadow-sm text-center" data-unit="Pcs" type="button">
+            Pcs
+          </button>
+<button class="unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-surface-container-low text-secondary text-center" data-unit="Set" type="button">
+            Set
+          </button>
+<button class="unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-surface-container-low text-secondary text-center" data-unit="Lusin" type="button">
+            Lusin
+          </button>
+<button class="unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-surface-container-low text-secondary text-center" data-unit="Pack" type="button">
+            Pack
+          </button>
+</div>
+</div>
+</div>
+<!-- Section 5: Supplier & Catatan Opsional -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">local_shipping</span>
+<label class="font-label-md text-label-md text-on-surface" for="supplier-input">Catatan Supplier / Sumber Kulakan</label>
+</div>
+<input class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container" id="supplier-input" placeholder="Misal: Toko Berkah Jaya / Importir Yiwu" type="text" value="Grosir Aksesoris Pasar Pagi Asemka"/>
+</div>
+<!-- Section 6: Switcher & Pengaturan Sinkronisasi -->
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-3.5">
+<!-- Toggle 1: Tampilkan di POS -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col pr-3">
+<span class="font-label-md text-label-md text-on-surface">Tampilkan di Kasir POS</span>
+<span class="font-body-sm text-body-sm text-secondary">Produk langsung muncul di etalase cepat</span>
+</div>
+<button aria-checked="true" class="w-12 h-7 rounded-full bg-primary transition-colors relative flex items-center px-0.5" id="toggle-pos" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-lowest shadow-md transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<div class="h-px bg-surface-container-low"></div>
+<!-- Toggle 2: Auto-sync Spreadsheet -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col pr-3">
+<span class="font-label-md text-label-md text-on-surface">Auto-sync Google Sheets</span>
+<span class="font-body-sm text-body-sm text-secondary">Push perubahan baris ke 'Katalog_Master' saat disimpan</span>
+</div>
+<button aria-checked="true" class="w-12 h-7 rounded-full bg-primary transition-colors relative flex items-center px-0.5" id="toggle-sync" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-lowest shadow-md transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+</div>
+<!-- Sync Meta Card (Delight & Trust Badge) -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[24px]">verified</span>
+<div class="flex flex-col text-xs">
+<span class="font-label-sm text-on-surface font-bold">Integritas Data Terjamin</span>
+<span class="font-body-sm text-secondary">Formula margin &amp; rekapan stok sheet terupdate real-time via REST Webhook.</span>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Floating Action Bar -->
+<div class="fixed bottom-16 left-0 right-0 z-40 p-margin bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-8px_20px_rgba(0,0,0,0.06)]">
+<div class="max-w-md mx-auto flex items-center gap-3">
+<!-- Secondary Cancel Button -->
+<button class="h-12 px-5 rounded-xl bg-surface-container-low text-secondary font-label-md text-label-md hover:bg-surface-container active:scale-95 transition-all" id="btn-cancel" type="button">
+        Batal
+      </button>
+<!-- Primary Save & Sync Action -->
+<button class="h-12 flex-1 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-bold shadow-md hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="btn-save" type="button">
+<span class="material-symbols-outlined text-[20px]" id="save-icon">cloud_upload</span>
+<span id="save-text">Simpan ke Spreadsheet</span>
+</button>
+</div>
+</div>
+<!-- Toast Notification Modal for Micro-delight -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-2xl bg-inverse-surface text-inverse-on-surface shadow-2xl flex items-center gap-3 transform -translate-y-8 opacity-0 pointer-events-none transition-all duration-300" id="toast-sync">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex flex-col pr-1">
+<span class="font-label-md text-label-md font-bold">Tersimpan ke Sheets!</span>
+<span class="font-body-sm text-body-sm text-surface-variant">Baris 'Katalog_Master' telah diperbarui.</span>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    // 1. Margin & Live Profit Calculator
+    const hppInput = document.getElementById('hpp-input');
+    const priceInput = document.getElementById('price-input');
+    const marginNominal = document.getElementById('margin-nominal');
+    const marginPercent = document.getElementById('margin-percent');
+    const marginCard = document.getElementById('margin-card');
+
+    function updateMargin() {
+      const hpp = parseFloat(hppInput.value) || 0;
+      const price = parseFloat(priceInput.value) || 0;
+      const margin = price - hpp;
+      
+      let percentage = 0;
+      if (price > 0) {
+        percentage = (margin / price) * 100;
+      }
+
+      marginNominal.textContent = 'Rp ' + margin.toLocaleString('id-ID') + ' / item';
+
+      if (margin >= 0) {
+        marginPercent.textContent = '+' + percentage.toFixed(1) + '%';
+        marginPercent.className = 'px-2.5 py-1 rounded-full bg-primary text-on-primary font-currency-md text-label-md font-bold';
+        marginCard.className = 'p-3.5 rounded-xl bg-primary-fixed/30 flex items-center justify-between transition-colors';
+      } else {
+        marginPercent.textContent = percentage.toFixed(1) + '%';
+        marginPercent.className = 'px-2.5 py-1 rounded-full bg-error text-on-error font-currency-md text-label-md font-bold';
+        marginCard.className = 'p-3.5 rounded-xl bg-error-container/40 flex items-center justify-between transition-colors';
+      }
+    }
+
+    hppInput.addEventListener('input', updateMargin);
+    priceInput.addEventListener('input', updateMargin);
+
+    // 2. Stock Stepper Controls
+    const stockInput = document.getElementById('stock-input');
+    const stockInc = document.getElementById('stock-inc');
+    const stockDec = document.getElementById('stock-dec');
+
+    stockInc.addEventListener('click', function () {
+      stockInput.value = (parseInt(stockInput.value) || 0) + 1;
+    });
+
+    stockDec.addEventListener('click', function () {
+      const current = parseInt(stockInput.value) || 0;
+      if (current > 0) stockInput.value = current - 1;
+    });
+
+    // 3. Category Chip Selection
+    const catChips = document.querySelectorAll('.category-chip');
+    catChips.forEach(chip => {
+      chip.addEventListener('click', function () {
+        catChips.forEach(c => {
+          c.className = 'category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-surface-container-low text-secondary';
+        });
+        this.className = 'category-chip px-3 py-1.5 rounded-full text-label-sm font-label-sm transition-all bg-primary text-on-primary font-bold shadow-sm';
+      });
+    });
+
+    // 4. Unit Chip Selection
+    const unitChips = document.querySelectorAll('.unit-chip');
+    unitChips.forEach(chip => {
+      chip.addEventListener('click', function () {
+        unitChips.forEach(c => {
+          c.className = 'unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-surface-container-low text-secondary text-center';
+        });
+        this.className = 'unit-chip py-2 rounded-xl text-label-md font-label-md transition-all bg-primary text-on-primary font-bold shadow-sm text-center';
+      });
+    });
+
+    // 5. Tab Switching: Baru vs Edit
+    const tabNew = document.getElementById('tab-new');
+    const tabEdit = document.getElementById('tab-edit');
+    const searchWrapper = document.getElementById('search-existing-wrapper');
+
+    tabNew.addEventListener('click', function () {
+      tabNew.className = 'flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1.5';
+      tabEdit.className = 'flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5';
+      searchWrapper.classList.add('hidden');
+    });
+
+    tabEdit.addEventListener('click', function () {
+      tabEdit.className = 'flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1.5';
+      tabNew.className = 'flex-1 py-2 rounded-lg font-label-md text-label-md transition-all text-center text-secondary hover:text-on-surface flex items-center justify-center gap-1.5';
+      searchWrapper.classList.remove('hidden');
+    });
+
+    // 6. Interactive Switches
+    function setupSwitch(id) {
+      const toggle = document.getElementById(id);
+      let active = true;
+      toggle.addEventListener('click', function () {
+        active = !active;
+        const knob = toggle.querySelector('span');
+        if (active) {
+          toggle.classList.remove('bg-surface-variant');
+          toggle.classList.add('bg-primary');
+          knob.classList.remove('translate-x-0.5');
+          knob.classList.add('translate-x-5');
+        } else {
+          toggle.classList.remove('bg-primary');
+          toggle.classList.add('bg-surface-variant');
+          knob.classList.remove('translate-x-5');
+          knob.classList.add('translate-x-0.5');
+        }
+      });
+    }
+    setupSwitch('toggle-pos');
+    setupSwitch('toggle-sync');
+
+    // 7. Simulated Barcode Scan Click
+    const btnScan = document.getElementById('btn-scan');
+    const skuInput = document.getElementById('sku-input');
+    btnScan.addEventListener('click', function () {
+      const randomCode = 'STY-AK-' + Math.floor(100 + Math.random() * 900);
+      skuInput.value = randomCode;
+      skuInput.classList.add('bg-primary-fixed/50');
+      setTimeout(() => skuInput.classList.remove('bg-primary-fixed/50'), 600);
+    });
+
+    // 8. Simulated Save with Live Feedback
+    const btnSave = document.getElementById('btn-save');
+    const saveIcon = document.getElementById('save-icon');
+    const saveText = document.getElementById('save-text');
+    const toastSync = document.getElementById('toast-sync');
+
+    btnSave.addEventListener('click', function () {
+      saveIcon.textContent = 'hourglass_top';
+      saveIcon.classList.add('animate-spin');
+      saveText.textContent = 'Menyinkronkan...';
+      btnSave.disabled = true;
+
+      setTimeout(() => {
+        saveIcon.textContent = 'cloud_done';
+        saveIcon.classList.remove('animate-spin');
+        saveText.textContent = 'Tersimpan!';
+
+        // Show Toast
+        toastSync.classList.remove('opacity-0', '-translate-y-8', 'pointer-events-none');
+        toastSync.classList.add('opacity-100', 'translate-y-0');
+
+        setTimeout(() => {
+          toastSync.classList.remove('opacity-100', 'translate-y-0');
+          toastSync.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
+          saveIcon.textContent = 'cloud_upload';
+          saveText.textContent = 'Simpan ke Spreadsheet';
+          btnSave.disabled = false;
+        }, 2200);
+      }, 900);
+    });
+
+    // 9. Cancel Micro-action
+    const btnCancel = document.getElementById('btn-cancel');
+    btnCancel.addEventListener('click', function () {
+      if (confirm('Batalkan perubahan dan kembali?')) {
+        window.history.back();
+      }
+    });
+
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-label-md [&amp;_span.indicator]:w-4 [&amp;_span.indicator]:opacity-100"><div class="flex items-center justify-around h-16 px-space-xs"><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="kasir" href="#"><span class="material-symbols-outlined text-[24px]">point_of_sale</span><span class="text-label-sm font-label-sm tracking-tight">Kasir</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="barang-masuk" href="#"><span class="material-symbols-outlined text-[24px]">move_to_inbox</span><span class="text-label-sm font-label-sm tracking-tight">Barang Masuk</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="rekapan" href="#"><span class="material-symbols-outlined text-[24px]">query_stats</span><span class="text-label-sm font-label-sm tracking-tight">Rekapan</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a><a class="group flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-secondary hover:text-on-surface transition-all" data-path="katalog-&amp;-sync" href="#"><span class="material-symbols-outlined text-[24px]">table_chart</span><span class="text-label-sm font-label-sm tracking-tight">Katalog &amp; Sync</span><span class="indicator w-1 h-1 rounded-full bg-primary opacity-0 transition-all"></span></a></div></nav></body></html>
