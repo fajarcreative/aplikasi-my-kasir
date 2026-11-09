@@ -119,6 +119,18 @@
 </head>
 <body class="bg-surface antialiased flex flex-col min-h-screen select-none">
 
+  <!-- ================= NOTICE BANNER IF NON-HTTPS ================= -->
+  <div id="banner-https-notice" class="hidden bg-amber-400 text-slate-950 px-4 py-2.5 text-xs font-semibold flex items-center justify-between gap-2 shadow-md z-50 sticky top-0 inset-x-0">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="material-symbols-outlined text-[20px] flex-shrink-0 text-slate-950">warning</span>
+      <span class="truncate">Gunakan HTTPS resmi agar Kamera HP Tecno & Instalasi PWA aktif:</span>
+    </div>
+    <a href="https://fajarcreative.github.io/aplikasi-my-kasir/" class="px-2.5 py-1 bg-slate-950 text-white rounded-lg text-xs font-bold whitespace-nowrap active:scale-95 transition-transform flex items-center gap-1">
+      <span>Buka HTTPS</span>
+      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+    </a>
+  </div>
+
   <!-- ================= SCREEN 0: AUTHENTICATION (LOGIN & REGISTRASI EMAIL) ================= -->
   <div id="screen-auth" class="fixed inset-0 z-50 bg-surface overflow-y-auto flex flex-col pt-safe pb-safe">
     <div class="max-w-md w-full mx-auto p-4 space-y-4">
@@ -142,6 +154,23 @@
             Gunakan email akun Anda untuk membuka kasir dan mendeteksi seluruh data produk & penjualan yang tersimpan.
           </p>
         </div>
+      </div>
+
+      <!-- Quick Install App Card for Tecno & Android Devices -->
+      <div class="p-3 rounded-2xl bg-primary-fixed/40 border border-primary/20 flex items-center justify-between gap-3 shadow-xs">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+            <span class="material-symbols-outlined text-[20px]">install_mobile</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-bold text-xs text-on-surface truncate">Pasang Aplikasi di Layar HP</span>
+            <span class="text-[10px] text-secondary truncate">Bisa dibuka offline di HP Tecno & Android</span>
+          </div>
+        </div>
+        <button type="button" onclick="triggerPWAInstall()" class="px-3 py-1.5 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold active:scale-95 transition-all flex-shrink-0 shadow-xs flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">download</span>
+          <span>Instal</span>
+        </button>
       </div>
 
       <!-- Segmented Auth Tab: Masuk (Login) vs Daftar Baru -->
@@ -377,8 +406,11 @@
 
       <!-- Live Sync Pill & Actions -->
       <div class="flex items-center gap-2">
-        <!-- PWA Install Button -->
-        <button id="btn-install-pwa" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold shadow-sm active:scale-95 transition-all animate-bounce" onclick="triggerPWAInstall()">
+        <!-- PWA Install Button (Always visible on mobile / accessible) -->
+        <button id="btn-install-pwa" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white text-xs font-bold shadow-xs active:scale-95 transition-all" onclick="triggerPWAInstall()" title="Pasang Aplikasi di Layar HP">
+          <span class="material-symbols-outlined text-[16px]">install_mobile</span>
+          <span id="btn-install-pwa-label">Instal App</span>
+        </button>
           <span class="material-symbols-outlined text-[16px]">install_mobile</span>
           <span>Instal App</span>
         </button>
@@ -1133,25 +1165,34 @@
               </button>
             </div>
 
-            <!-- Upload Controls -->
+            <!-- Upload Controls with Direct Touch Targets & Live Camera -->
             <div class="flex-1 flex flex-col gap-2">
-              <input type="file" id="input-file-camera" accept="image/*" capture="environment" class="hidden" onchange="handleImageFileSelected(event)">
-              <input type="file" id="input-file-gallery" accept="image/*" class="hidden" onchange="handleImageFileSelected(event)">
               <input type="hidden" id="prod-form-image" value="">
 
-              <!-- Button 1: Foto Kamera Langsung -->
-              <button type="button" onclick="document.getElementById('input-file-camera').click()" 
-                      class="w-full py-2 px-3 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all">
+              <!-- Option 1: Live In-App Camera Viewfinder -->
+              <button type="button" onclick="openLiveCameraModal()" 
+                      class="w-full py-2.5 px-3 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all">
                 <span class="material-symbols-outlined text-[18px]">photo_camera</span>
-                <span>Foto Kamera Langsung</span>
+                <span>Buka Kamera Langsung</span>
               </button>
 
-              <!-- Button 2: Upload File / Galeri -->
-              <button type="button" onclick="document.getElementById('input-file-gallery').click()" 
-                      class="w-full py-2 px-3 rounded-xl bg-surface-container-lowest text-on-surface border border-surface-container-high text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[18px] text-secondary">upload_file</span>
-                <span>Pilih dari Galeri / File</span>
-              </button>
+              <div class="grid grid-cols-2 gap-1.5">
+                <!-- Option 2: Native Android/Tecno Camera Intent via Label -->
+                <label for="input-file-camera-native" 
+                       class="py-2 px-1.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-[11px] font-semibold flex items-center justify-center gap-1 border border-surface-container-high active:scale-95 transition-all cursor-pointer text-center select-none shadow-xs">
+                  <span class="material-symbols-outlined text-[16px] text-primary">camera_alt</span>
+                  <span>Kamera HP</span>
+                  <input type="file" id="input-file-camera-native" accept="image/*" capture="environment" class="sr-only" onchange="handleImageFileSelected(event)">
+                </label>
+
+                <!-- Option 3: Gallery / File Picker via Label -->
+                <label for="input-file-gallery-native" 
+                       class="py-2 px-1.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-[11px] font-semibold flex items-center justify-center gap-1 border border-surface-container-high active:scale-95 transition-all cursor-pointer text-center select-none shadow-xs">
+                  <span class="material-symbols-outlined text-[16px] text-secondary">image</span>
+                  <span>Galeri File</span>
+                  <input type="file" id="input-file-gallery-native" accept="image/*" class="sr-only" onchange="handleImageFileSelected(event)">
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -1276,6 +1317,24 @@
           <input id="cfg-target-omset" type="number" step="100000" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm font-currency font-bold text-primary focus:outline-none focus:border-primary">
         </div>
 
+        <!-- Install PWA on Phone Section (Tecno & Android) -->
+        <div class="p-3 bg-primary-fixed/30 rounded-2xl border border-primary/20 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[20px]">install_mobile</span>
+              <span class="font-bold text-xs text-on-surface">Pasang Aplikasi di Layar HP</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold">Android / Tecno</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed">
+            Pasang My Kasir sebagai aplikasi layar utama HP agar kasir bisa dibuka instan & offline tanpa mengetik alamat website.
+          </p>
+          <button type="button" onclick="closeProfileModal(); openInstallGuideModal();" class="w-full py-2.5 rounded-xl bg-primary text-white font-bold text-xs shadow-xs active:scale-95 transition-all flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            <span>Buka Menu & Panduan Pasang di HP</span>
+          </button>
+        </div>
+
         <!-- Logout & Account Zone -->
         <div class="pt-3 border-t border-surface-container space-y-2">
           <button onclick="handleLogout()" type="button" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-sm">
@@ -1365,10 +1424,10 @@
   </div>
 
 
-  <!-- ================= BARCODE SCANNER MODAL (CAMERA OR SIMULATED) ================= -->
+  <!-- ================= BARCODE SCANNER MODAL (CAMERA & LIVE SCAN) ================= -->
   <div id="modal-barcode" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-xs" onclick="closeBarcodeScannerModal()"></div>
-    <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-sm mx-auto bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-sm mx-auto bg-surface-container-lowest rounded-3xl shadow-2xl overflow-hidden flex flex-col">
       <div class="p-4 border-b border-surface-container flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[22px]">barcode_scanner</span>
@@ -1379,26 +1438,206 @@
         </button>
       </div>
 
-      <div class="p-4 space-y-4 text-center">
-        <!-- Scanner Viewport Finder Graphic -->
-        <div class="relative w-full h-48 bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center">
-          <div class="absolute inset-4 border-2 border-primary-fixed border-dashed rounded-lg animate-pulse flex items-center justify-center">
-            <span class="text-xs text-primary-fixed font-mono bg-black/60 px-2 py-1 rounded">Arahkan ke Barcode Produk</span>
+      <div class="p-4 space-y-3.5 text-center">
+        <!-- Real Live Camera Viewfinder -->
+        <div class="relative w-full h-56 bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-surface-container-high shadow-inner">
+          <video id="barcode-scanner-video" playsinline autoplay muted class="w-full h-full object-cover"></video>
+          
+          <!-- Viewfinder Aim Frame -->
+          <div class="absolute inset-x-8 inset-y-10 border-2 border-primary-fixed/80 rounded-xl pointer-events-none flex items-center justify-center shadow-[0_0_15px_rgba(0,105,72,0.3)]">
+            <div class="absolute inset-x-0 h-0.5 bg-rose-500 shadow-[0_0_10px_#f43f5e] animate-pulse"></div>
           </div>
-          <div class="absolute inset-x-0 top-1/2 h-0.5 bg-rose-500 shadow-[0_0_12px_#f43f5e]"></div>
+
+          <div id="barcode-scanner-status" class="absolute bottom-2 inset-x-2 py-1 px-2.5 rounded-lg bg-black/80 text-[10px] text-white font-mono backdrop-blur-xs truncate">
+            🟢 Menghubungkan kamera HP...
+          </div>
         </div>
 
-        <div class="space-y-2">
-          <p class="text-xs text-secondary">Pilih produk terdaftar untuk simulasi scan barcode:</p>
-          <div id="barcode-quick-picks" class="flex flex-wrap gap-1.5 justify-center">
+        <!-- Manual SKU / Barcode Input Form -->
+        <div class="flex items-center gap-1.5">
+          <div class="relative flex-1">
+            <input id="barcode-manual-input" type="text" placeholder="Ketik barcode / SKU..." class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-2.5 pl-8 text-xs text-on-surface font-mono focus:outline-none focus:border-primary" onkeydown="if(event.key==='Enter') handleManualBarcodeSubmit()">
+            <span class="material-symbols-outlined text-[16px] text-secondary absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
+          </div>
+          <button type="button" onclick="handleManualBarcodeSubmit()" class="px-3.5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs active:scale-95 transition-all">
+            Cari
+          </button>
+        </div>
+
+        <div class="space-y-1.5 text-left">
+          <p class="text-[10px] font-bold text-secondary uppercase tracking-wider">Atau Pilih Cepat Produk:</p>
+          <div id="barcode-quick-picks" class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto no-scrollbar">
             <!-- Populated by JS -->
           </div>
         </div>
       </div>
 
-      <div class="p-3 border-t border-surface-container bg-surface-container">
-        <button onclick="closeBarcodeScannerModal()" class="w-full py-2.5 rounded-xl bg-surface-container-lowest text-on-surface font-bold text-xs active:scale-95">
+      <div class="p-3 border-t border-surface-container bg-surface-container flex items-center justify-between">
+        <button type="button" onclick="switchBarcodeCameraFacing()" class="px-3 py-2 rounded-xl bg-surface-container-lowest text-secondary text-xs font-semibold flex items-center gap-1 active:scale-95 shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">cameraswitch</span>
+          <span>Putar Kamera</span>
+        </button>
+        <button onclick="closeBarcodeScannerModal()" class="px-4 py-2 rounded-xl bg-primary text-white font-bold text-xs active:scale-95 shadow-xs">
           Selesai
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= LIVE CAMERA MODAL (FOTO PRODUK HP) ================= -->
+  <div id="modal-live-camera" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeLiveCameraModal()"></div>
+    <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 max-w-sm mx-auto bg-slate-950 rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-white/10 text-white">
+      
+      <!-- Header -->
+      <div class="p-4 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary-fixed text-[22px]">photo_camera</span>
+          <h3 class="font-bold text-sm text-white">Kamera Produk</h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="switchLiveCameraFacing()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-95 transition-all" title="Ganti Kamera Depan/Belakang">
+            <span class="material-symbols-outlined text-[18px]">flip_camera_android</span>
+          </button>
+          <button type="button" onclick="closeLiveCameraModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Viewfinder -->
+      <div class="relative w-full aspect-square bg-black overflow-hidden flex items-center justify-center">
+        <video id="live-camera-video" playsinline autoplay muted class="w-full h-full object-cover"></video>
+        <canvas id="live-camera-canvas" class="hidden"></canvas>
+        
+        <!-- Framing Guide (1:1 Product Grid) -->
+        <div class="absolute inset-6 border border-white/40 rounded-2xl pointer-events-none grid grid-cols-3 grid-rows-3">
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-b border-r border-white/20"></div>
+          <div class="border-r border-white/20"></div>
+          <div class="border-r border-white/20"></div>
+          <div></div>
+        </div>
+
+        <div id="live-camera-loading" class="absolute inset-0 bg-slate-900/90 flex flex-col items-center justify-center gap-2">
+          <span class="material-symbols-outlined animate-spin text-primary-fixed text-[32px]">sync</span>
+          <span class="text-xs text-white/80">Menghubungkan ke kamera HP...</span>
+        </div>
+      </div>
+
+      <!-- Bottom Controls -->
+      <div class="p-4 flex items-center justify-around bg-slate-900/80">
+        <label for="input-file-camera-native" onclick="closeLiveCameraModal()" class="flex flex-col items-center gap-1 text-[10px] text-white/70 hover:text-white cursor-pointer active:scale-95">
+          <span class="material-symbols-outlined text-[24px]">camera</span>
+          <span>Kamera Sistem</span>
+        </label>
+
+        <!-- Shutter Button -->
+        <button type="button" onclick="captureLiveCameraSnapshot()" class="w-16 h-16 rounded-full bg-white p-1 shadow-lg active:scale-90 transition-transform flex items-center justify-center">
+          <div class="w-full h-full rounded-full border-4 border-slate-950 bg-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-[24px]">camera_alt</span>
+          </div>
+        </button>
+
+        <button type="button" onclick="switchLiveCameraFacing()" class="flex flex-col items-center gap-1 text-[10px] text-white/70 hover:text-white active:scale-95">
+          <span class="material-symbols-outlined text-[24px]">cameraswitch</span>
+          <span>Putar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= PWA INSTALLATION GUIDE MODAL (TECNO & ANDROID) ================= -->
+  <div id="modal-install-guide" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-xs" onclick="closeInstallGuideModal()"></div>
+    <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-sm mx-auto bg-surface-container-lowest rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <div class="p-4 border-b border-surface-container flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">install_mobile</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm text-on-surface">Pasang Aplikasi di HP</h3>
+            <span class="text-[10px] text-secondary">Aplikasi Kasir Siap Pakai di HP Anda</span>
+          </div>
+        </div>
+        <button onclick="closeInstallGuideModal()" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-4 overflow-y-auto space-y-3.5 text-xs">
+        
+        <!-- Detected Device Pill -->
+        <div class="p-3 bg-primary-fixed/30 rounded-2xl border border-primary/20 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[20px]">smartphone</span>
+            <div class="flex flex-col">
+              <span class="font-bold text-on-surface">Perangkat: Android / Tecno</span>
+              <span class="text-[10px] text-secondary">Chrome / Browser Bawaan HiOS</span>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold">PWA Aktif</span>
+        </div>
+
+        <!-- Automated Install Button if prompt ready -->
+        <div id="install-guide-prompt-area" class="space-y-1">
+          <button id="btn-guide-direct-install" onclick="executeNativeInstallPrompt()" type="button" 
+                  class="w-full py-3 rounded-2xl bg-primary hover:bg-primary-container text-white font-bold text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[20px]">download</span>
+            <span>Pasang Sekarang (Otomatis)</span>
+          </button>
+        </div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-surface-container"></div>
+          <span class="flex-shrink mx-3 text-[10px] text-secondary font-bold uppercase">Atau Ikuti 3 Langkah Cepat</span>
+          <div class="flex-grow border-t border-surface-container"></div>
+        </div>
+
+        <!-- 3 Simple Steps for Tecno / Android -->
+        <div class="space-y-2.5">
+          <div class="flex items-start gap-3 p-2.5 rounded-2xl bg-surface-container-low border border-surface-container-high/60">
+            <div class="w-6 h-6 rounded-full bg-primary text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+            <div>
+              <p class="font-bold text-on-surface">Ketuk Menu Titik Tiga (⋮)</p>
+              <p class="text-[11px] text-secondary mt-0.5">Di sudut kanan atas browser Google Chrome atau Browser HP Tecno Anda.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-2.5 rounded-2xl bg-surface-container-low border border-surface-container-high/60">
+            <div class="w-6 h-6 rounded-full bg-primary text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+            <div>
+              <p class="font-bold text-on-surface">Pilih "Instal aplikasi" / "Tambahkan ke Layar Utama"</p>
+              <p class="text-[11px] text-secondary mt-0.5">Menu ini akan membuat ikon My Kasir muncul di beranda HP layaknya aplikasi Play Store.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-2.5 rounded-2xl bg-surface-container-low border border-surface-container-high/60">
+            <div class="w-6 h-6 rounded-full bg-primary text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+            <div>
+              <p class="font-bold text-on-surface">Tekan "Instal"</p>
+              <p class="text-[11px] text-secondary mt-0.5">Selesai! Aplikasi langsung terpasang di HP dan bisa dibuka kapan saja tanpa kuota.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning for non-HTTPS -->
+        <div id="install-https-warning" class="hidden p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 text-[11px]">
+          ⚠️ Pastikan membuka lewat HTTPS resmi: <a href="https://fajarcreative.github.io/aplikasi-my-kasir/" class="underline font-bold">https://fajarcreative.github.io/aplikasi-my-kasir/</a> agar izin instalasi disetujui Android.
+        </div>
+      </div>
+
+      <div class="p-3 border-t border-surface-container bg-surface-container flex items-center gap-2">
+        <button onclick="closeInstallGuideModal()" class="w-full py-2.5 rounded-xl bg-surface-container-lowest text-on-surface font-bold text-xs active:scale-95 shadow-xs">
+          Tutup & Mengerti
         </button>
       </div>
     </div>
@@ -1428,7 +1667,22 @@
     let cart = {}; // { [productId]: quantity }
     let activeCategory = 'Semua';
     let currentPaymentMethod = 'Tunai';
+
+    // Global PWA BeforeInstallPrompt Listener (captured as early as possible)
     let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      console.log('My Kasir: beforeinstallprompt captured!');
+      const directBtn = document.getElementById('btn-guide-direct-install');
+      if (directBtn) directBtn.classList.remove('hidden');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('My Kasir: PWA installed successfully!');
+      showToast('Aplikasi My Kasir berhasil dipasang di HP! 🎉');
+      deferredInstallPrompt = null;
+    });
 
     // Helper: Get Accounts Database Map
     function getAccountsDatabase() {
@@ -1502,13 +1756,8 @@
         showAuthScreen(Object.keys(accounts).length > 0 ? 'login' : 'register');
       }
 
-      // Setup PWA install listener
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredInstallPrompt = e;
-        const btn = document.getElementById('btn-install-pwa');
-        if (btn) btn.classList.remove('hidden');
-      });
+      // Check HTTPS Environment for Camera & PWA Permissions
+      checkHttpsEnvironment();
 
       // Register Service Worker
       if ('serviceWorker' in navigator) {
@@ -2778,50 +3027,304 @@
       URL.revokeObjectURL(url);
     }
 
-    // ================= BARCODE SCANNER MODAL =================
-    function openBarcodeScannerModal() {
+    // ================= BARCODE SCANNER WITH REAL CAMERA & LIVE DETECTOR =================
+    let barcodeScannerStream = null;
+    let barcodeDetectorInstance = null;
+    let barcodeScanLoopActive = false;
+    let barcodeFacingMode = 'environment';
+
+    async function openBarcodeScannerModal() {
+      const modal = document.getElementById('modal-barcode');
+      modal.classList.remove('hidden');
+
+      // Populate quick picks
       const container = document.getElementById('barcode-quick-picks');
       if (products.length === 0) {
-        container.innerHTML = '<span class="text-xs text-secondary">Belum ada produk terdaftar untuk di-scan</span>';
+        container.innerHTML = '<span class="text-xs text-secondary">Belum ada produk terdaftar</span>';
       } else {
         container.innerHTML = products.map(p => `
-          <button onclick="simulateScanBarcode('${p.barcode}')" class="px-2.5 py-1.5 rounded-lg bg-surface-container text-[11px] font-mono text-on-surface hover:bg-primary hover:text-white transition-all">
+          <button type="button" onclick="simulateScanBarcode('${p.barcode}')" class="px-2.5 py-1.5 rounded-lg bg-surface-container text-[11px] font-mono text-on-surface hover:bg-primary hover:text-white transition-all">
             ${p.name.split(' ')[0]} (#${p.barcode})
           </button>
         `).join('');
       }
 
-      document.getElementById('modal-barcode').classList.remove('hidden');
+      const input = document.getElementById('barcode-manual-input');
+      if (input) input.value = '';
+
+      startBarcodeCamera();
     }
 
-    function closeBarcodeScannerModal() {
-      document.getElementById('modal-barcode').classList.add('hidden');
-    }
+    async function startBarcodeCamera() {
+      const video = document.getElementById('barcode-scanner-video');
+      const statusPill = document.getElementById('barcode-scanner-status');
 
-    function simulateScanBarcode(barcode) {
-      closeBarcodeScannerModal();
-      const prod = products.find(p => p.barcode === barcode);
-      if (prod) {
-        changeCartQty(prod.id, 1);
-        showToast(`Scan Barcode: ${prod.name} masuk keranjang! 📷`);
+      if (barcodeScannerStream) {
+        barcodeScannerStream.getTracks().forEach(t => t.stop());
+        barcodeScannerStream = null;
+      }
+
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          if (statusPill) statusPill.textContent = '🟢 Menghubungkan kamera HP...';
+          barcodeScannerStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: { ideal: barcodeFacingMode },
+              width: { ideal: 1280 },
+              height: { ideal: 720 }
+            },
+            audio: false
+          });
+
+          video.srcObject = barcodeScannerStream;
+          await video.play();
+          if (statusPill) statusPill.textContent = '🟢 Kamera Aktif • Arahkan ke Barcode';
+
+          // Initialize BarcodeDetector API if supported (Chrome on Android / Tecno)
+          if ('BarcodeDetector' in window) {
+            try {
+              barcodeDetectorInstance = new BarcodeDetector({
+                formats: ['code_128', 'ean_13', 'ean_8', 'qr_code', 'upc_a', 'upc_e']
+              });
+              barcodeScanLoopActive = true;
+              runBarcodeScanLoop();
+            } catch (err) {
+              console.warn('BarcodeDetector error:', err);
+            }
+          }
+        } catch (err) {
+          console.warn('Barcode camera stream error:', err);
+          if (statusPill) {
+            if (err.name === 'NotAllowedError') {
+              statusPill.textContent = '⚠️ Izin kamera belum diaktifkan di browser HP';
+            } else {
+              statusPill.textContent = '⚠️ Kamera tidak terdeteksi (Gunakan input SKU manual)';
+            }
+          }
+        }
       } else {
-        showToast('Barcode tidak terdaftar dalam katalog', false);
+        if (statusPill) statusPill.textContent = '⚠️ Fitur kamera WebRTC nonaktif (Buka via HTTPS)';
       }
     }
 
-    // ================= PWA INSTALL TRIGGER =================
+    async function runBarcodeScanLoop() {
+      if (!barcodeScanLoopActive) return;
+      const video = document.getElementById('barcode-scanner-video');
+      if (video && video.readyState === video.HAVE_ENOUGH_DATA && barcodeDetectorInstance) {
+        try {
+          const barcodes = await barcodeDetectorInstance.detect(video);
+          if (barcodes.length > 0) {
+            const code = barcodes[0].rawValue;
+            if (code) {
+              barcodeScanLoopActive = false;
+              simulateScanBarcode(code);
+              return;
+            }
+          }
+        } catch (e) {}
+      }
+      if (barcodeScanLoopActive) {
+        requestAnimationFrame(runBarcodeScanLoop);
+      }
+    }
+
+    function switchBarcodeCameraFacing() {
+      barcodeFacingMode = barcodeFacingMode === 'environment' ? 'user' : 'environment';
+      startBarcodeCamera();
+    }
+
+    function handleManualBarcodeSubmit() {
+      const input = document.getElementById('barcode-manual-input');
+      const val = (input.value || '').trim();
+      if (!val) {
+        showToast('Ketik kode barcode / SKU terlebih dahulu', false);
+        return;
+      }
+      simulateScanBarcode(val);
+      input.value = '';
+    }
+
+    function closeBarcodeScannerModal() {
+      barcodeScanLoopActive = false;
+      document.getElementById('modal-barcode').classList.add('hidden');
+      if (barcodeScannerStream) {
+        barcodeScannerStream.getTracks().forEach(t => t.stop());
+        barcodeScannerStream = null;
+      }
+    }
+
+    function playBeepSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+      } catch (e) {}
+    }
+
+    function simulateScanBarcode(barcode) {
+      const prod = products.find(p => p.barcode === barcode || p.id === barcode);
+      if (prod) {
+        changeCartQty(prod.id, 1);
+        playBeepSound();
+        showToast(`Scan Barcode: ${prod.name} (+1 ke Keranjang)! 📷`);
+        closeBarcodeScannerModal();
+      } else {
+        playBeepSound();
+        showToast(`Barcode "${barcode}" belum ada di katalog produk`, false);
+      }
+    }
+
+    // ================= LIVE CAMERA FOR PRODUCT PHOTO (VIEWFINDER & 1:1 CROP) =================
+    let liveCameraStream = null;
+    let liveCameraFacingMode = 'environment';
+
+    async function openLiveCameraModal() {
+      const modal = document.getElementById('modal-live-camera');
+      const loading = document.getElementById('live-camera-loading');
+      modal.classList.remove('hidden');
+      loading.classList.remove('hidden');
+
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('Browser tidak mendukung WebRTC Camera. Gunakan opsi "Kamera HP".');
+        }
+
+        if (liveCameraStream) {
+          liveCameraStream.getTracks().forEach(t => t.stop());
+          liveCameraStream = null;
+        }
+
+        liveCameraStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: liveCameraFacingMode },
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        });
+
+        const video = document.getElementById('live-camera-video');
+        video.srcObject = liveCameraStream;
+        await video.play();
+        loading.classList.add('hidden');
+      } catch (err) {
+        console.warn('Live camera error:', err);
+        loading.innerHTML = `
+          <div class="p-4 text-center space-y-2">
+            <span class="material-symbols-outlined text-amber-400 text-[36px]">no_photography</span>
+            <p class="text-xs text-white font-bold">${err.name === 'NotAllowedError' ? 'Izin kamera belum diizinkan di browser HP' : 'Kamera langsung belum aktif'}</p>
+            <p class="text-[10px] text-white/70">Silakan gunakan tombol "Kamera Sistem" atau pilih foto dari Galeri HP Anda.</p>
+            <button type="button" onclick="closeLiveCameraModal(); document.getElementById('input-file-camera-native').click();" class="mt-2 px-3 py-1.5 rounded-xl bg-primary text-white text-xs font-bold">
+              Buka Kamera Sistem HP
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function switchLiveCameraFacing() {
+      liveCameraFacingMode = liveCameraFacingMode === 'environment' ? 'user' : 'environment';
+      openLiveCameraModal();
+    }
+
+    function closeLiveCameraModal() {
+      document.getElementById('modal-live-camera').classList.add('hidden');
+      if (liveCameraStream) {
+        liveCameraStream.getTracks().forEach(t => t.stop());
+        liveCameraStream = null;
+      }
+    }
+
+    function captureLiveCameraSnapshot() {
+      const video = document.getElementById('live-camera-video');
+      const canvas = document.getElementById('live-camera-canvas');
+      if (!video || !video.videoWidth) {
+        showToast('Kamera belum siap, mohon tunggu sebentar', false);
+        return;
+      }
+
+      // 1:1 Square Center Crop
+      const size = Math.min(video.videoWidth, video.videoHeight);
+      const startX = (video.videoWidth - size) / 2;
+      const startY = (video.videoHeight - size) / 2;
+
+      const targetDim = 480;
+      canvas.width = targetDim;
+      canvas.height = targetDim;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, startX, startY, size, size, 0, 0, targetDim, targetDim);
+
+      const compressed = canvas.toDataURL('image/jpeg', 0.80);
+      setProductImagePreview(compressed);
+      closeLiveCameraModal();
+      showToast('Foto produk berhasil diambil dari kamera! 📷');
+    }
+
+    // ================= PWA INSTALLATION MODAL & TRIGGERS (TECNO & ANDROID COMPATIBLE) =================
     function triggerPWAInstall() {
       if (deferredInstallPrompt) {
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            showToast('Aplikasi My Kasir sedang diinstal ke HP Anda! 🎉');
-            document.getElementById('btn-install-pwa').classList.add('hidden');
+            showToast('Aplikasi My Kasir sedang dipasang ke HP Anda! 🎉');
+            deferredInstallPrompt = null;
           }
-          deferredInstallPrompt = null;
         });
       } else {
-        alert("Untuk menginstal di HP:\n• Android Chrome: Tap menu titik tiga (⋮) > 'Tambahkan ke Layar Utama' / 'Instal aplikasi'\n• iPhone Safari: Tap tombol Share (kotak panah ke atas ⎋) > 'Tambahkan ke Layar Utama' (Add to Home Screen)");
+        openInstallGuideModal();
+      }
+    }
+
+    function openInstallGuideModal() {
+      const modal = document.getElementById('modal-install-guide');
+      const directBtn = document.getElementById('btn-guide-direct-install');
+      if (deferredInstallPrompt) {
+        directBtn.classList.remove('hidden');
+      } else {
+        directBtn.classList.add('hidden');
+      }
+
+      const httpsWarning = document.getElementById('install-https-warning');
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        httpsWarning.classList.remove('hidden');
+      } else {
+        httpsWarning.classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeInstallGuideModal() {
+      document.getElementById('modal-install-guide').classList.add('hidden');
+    }
+
+    function executeNativeInstallPrompt() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            showToast('Aplikasi My Kasir berhasil dipasang! 🎉');
+            closeInstallGuideModal();
+            deferredInstallPrompt = null;
+          }
+        });
+      } else {
+        alert("Silakan ketuk menu titik tiga (⋮) di pojok kanan atas browser HP Anda, lalu pilih 'Instal aplikasi' atau 'Tambahkan ke Layar Utama'.");
+      }
+    }
+
+    function checkHttpsEnvironment() {
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        const banner = document.getElementById('banner-https-notice');
+        if (banner) banner.classList.remove('hidden');
       }
     }
 
