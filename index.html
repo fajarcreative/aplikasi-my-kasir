@@ -115,6 +115,16 @@
         background: white !important;
       }
     }
+
+    /* Hide install app buttons when already installed / opened as installed PWA */
+    @media all and (display-mode: standalone) {
+      #btn-install-pwa,
+      #auth-install-card,
+      #banner-https-notice,
+      .pwa-install-trigger {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-surface antialiased flex flex-col min-h-screen select-none">
@@ -156,8 +166,8 @@
         </div>
       </div>
 
-      <!-- Quick Install App Card for Tecno & Android Devices -->
-      <div class="p-3 rounded-2xl bg-primary-fixed/40 border border-primary/20 flex items-center justify-between gap-3 shadow-xs">
+      <!-- Quick Install App Card for Tecno & Android Devices (Hidden if installed) -->
+      <div id="auth-install-card" class="pwa-install-trigger p-3 rounded-2xl bg-primary-fixed/40 border border-primary/20 flex items-center justify-between gap-3 shadow-xs">
         <div class="flex items-center gap-2.5 min-w-0">
           <div class="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-xs">
             <span class="material-symbols-outlined text-[20px]">install_mobile</span>
@@ -406,13 +416,10 @@
 
       <!-- Live Sync Pill & Actions -->
       <div class="flex items-center gap-2">
-        <!-- PWA Install Button (Always visible on mobile / accessible) -->
-        <button id="btn-install-pwa" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white text-xs font-bold shadow-xs active:scale-95 transition-all" onclick="triggerPWAInstall()" title="Pasang Aplikasi di Layar HP">
+        <!-- PWA Install Button (Hidden when running as installed app on phone) -->
+        <button id="btn-install-pwa" class="pwa-install-trigger flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white text-xs font-bold shadow-xs active:scale-95 transition-all" onclick="triggerPWAInstall()" title="Pasang Aplikasi di Layar HP">
           <span class="material-symbols-outlined text-[16px]">install_mobile</span>
           <span id="btn-install-pwa-label">Instal App</span>
-        </button>
-          <span class="material-symbols-outlined text-[16px]">install_mobile</span>
-          <span>Instal App</span>
         </button>
 
         <!-- Google Sheets Status Pill -->
@@ -1329,8 +1336,8 @@
           <input id="cfg-target-omset" type="number" step="100000" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm font-currency font-bold text-primary focus:outline-none focus:border-primary">
         </div>
 
-        <!-- Install PWA on Phone Section (Tecno & Android) -->
-        <div class="p-3 bg-primary-fixed/30 rounded-2xl border border-primary/20 space-y-2">
+        <!-- Install PWA on Phone Section (Hidden when installed) -->
+        <div id="profile-install-section" class="pwa-install-trigger p-3 bg-primary-fixed/30 rounded-2xl border border-primary/20 space-y-2">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="material-symbols-outlined text-primary text-[20px]">install_mobile</span>
@@ -1680,21 +1687,74 @@
     let activeCategory = 'Semua';
     let currentPaymentMethod = 'Tunai';
 
+    // Helper to detect if app is running in installed standalone mode
+    function isAppInstalled() {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+             window.navigator.standalone === true ||
+             document.referrer.includes('android-app://') ||
+             localStorage.getItem('my_kasir_app_installed') === 'true';
+    }
+
+    function updatePWAInstallUI() {
+      const installed = isAppInstalled();
+      const btn = document.getElementById('btn-install-pwa');
+      const authCard = document.getElementById('auth-install-card');
+      const profileInstallSec = document.getElementById('profile-install-section');
+
+      if (btn) {
+        if (installed) {
+          btn.classList.add('hidden');
+          btn.classList.remove('flex');
+        } else {
+          btn.classList.remove('hidden');
+          btn.classList.add('flex');
+        }
+      }
+
+      if (authCard) {
+        if (installed) {
+          authCard.classList.add('hidden');
+        } else {
+          authCard.classList.remove('hidden');
+        }
+      }
+
+      if (profileInstallSec) {
+        if (installed) {
+          profileInstallSec.classList.add('hidden');
+        } else {
+          profileInstallSec.classList.remove('hidden');
+        }
+      }
+    }
+
     // Global PWA BeforeInstallPrompt Listener (captured as early as possible)
     let deferredInstallPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredInstallPrompt = e;
       console.log('My Kasir: beforeinstallprompt captured!');
+      updatePWAInstallUI();
       const directBtn = document.getElementById('btn-guide-direct-install');
       if (directBtn) directBtn.classList.remove('hidden');
     });
 
     window.addEventListener('appinstalled', () => {
       console.log('My Kasir: PWA installed successfully!');
+      localStorage.setItem('my_kasir_app_installed', 'true');
+      updatePWAInstallUI();
       showToast('Aplikasi My Kasir berhasil dipasang di HP! 🎉');
       deferredInstallPrompt = null;
     });
+
+    try {
+      window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
+        if (evt.matches) {
+          localStorage.setItem('my_kasir_app_installed', 'true');
+        }
+        updatePWAInstallUI();
+      });
+    } catch (e) {}
 
     // Helper: Get Accounts Database Map
     function getAccountsDatabase() {
@@ -1770,6 +1830,9 @@
 
       // Check HTTPS Environment for Camera & PWA Permissions
       checkHttpsEnvironment();
+
+      // Update PWA Install UI (hides install button if already installed on phone)
+      updatePWAInstallUI();
 
       // Register Service Worker
       if ('serviceWorker' in navigator) {
@@ -3343,6 +3406,8 @@
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
+            localStorage.setItem('my_kasir_app_installed', 'true');
+            updatePWAInstallUI();
             showToast('Aplikasi My Kasir sedang dipasang ke HP Anda! 🎉');
             deferredInstallPrompt = null;
           }
@@ -3380,6 +3445,8 @@
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
+            localStorage.setItem('my_kasir_app_installed', 'true');
+            updatePWAInstallUI();
             showToast('Aplikasi My Kasir berhasil dipasang! 🎉');
             closeInstallGuideModal();
             deferredInstallPrompt = null;
