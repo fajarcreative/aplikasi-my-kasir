@@ -99,8 +99,167 @@
 </head>
 <body class="bg-surface antialiased flex flex-col min-h-screen select-none">
 
-  <!-- ================= TOP APP HEADER ================= -->
-  <header class="fixed top-0 w-full z-40 pt-safe bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-container/60 shadow-sm transition-all">
+  <!-- ================= SCREEN 0: REGISTRASI & DAFTAR AKUN (WAJIB PERTAMA KALI) ================= -->
+  <div id="screen-registration" class="fixed inset-0 z-50 bg-surface overflow-y-auto flex flex-col pt-safe pb-safe">
+    <div class="max-w-md w-full mx-auto p-4 space-y-4">
+      
+      <!-- Top Welcome Card -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-container to-surface-container-high p-5 shadow-sm border border-surface-container-high">
+        <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-primary-fixed/30 blur-2xl pointer-events-none"></div>
+        <div class="flex items-start justify-between relative z-10 mb-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs">
+            <span class="material-symbols-outlined text-[16px]">storefront</span>
+            <span>My Kasir ID</span>
+          </div>
+          <div class="flex items-center gap-1 text-primary text-xs font-semibold">
+            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            <span>Privat & Aman</span>
+          </div>
+        </div>
+        <div class="relative z-10 space-y-1">
+          <h1 class="text-xl font-bold text-on-surface">Daftar Akun Pengelola Toko</h1>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Mulai kelola kasir POS, stok barang masuk, dan terhubung langsung ke Google Spreadsheet.
+          </p>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-2 relative z-10 text-center">
+          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
+            <span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
+            <span class="block text-[11px] font-bold text-on-surface mt-0.5">POS Kilat</span>
+          </div>
+          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
+            <span class="material-symbols-outlined text-tertiary text-[20px]">table_chart</span>
+            <span class="block text-[11px] font-bold text-on-surface mt-0.5">Google Sheet</span>
+          </div>
+          <div class="rounded-xl bg-surface-container-lowest/80 p-2 shadow-xs">
+            <span class="material-symbols-outlined text-primary-container text-[20px]">inventory_2</span>
+            <span class="block text-[11px] font-bold text-on-surface mt-0.5">Stok Rinci</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 0 Produk Condition Banner -->
+      <div class="rounded-2xl bg-secondary-container/40 p-4 shadow-sm border border-secondary-container flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+          <span class="material-symbols-outlined text-[22px]">inventory</span>
+        </div>
+        <div class="flex-1 space-y-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-bold text-xs text-on-surface">📦 Akun Baru: Database Bersih</span>
+            <span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold text-[10px]">0 Produk Awal</span>
+          </div>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            Saat pertama mendaftar, etalase kasir dan katalog dibuka dalam keadaan <strong>kosong (0 produk)</strong>. Anda dapat menginput produk jualan perdana toko Anda sendiri setelah akun dibuat.
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Registration Form -->
+      <form id="form-register" class="space-y-3.5 bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-surface-container-high/60" onsubmit="handleRegistrationSubmit(event)">
+        
+        <!-- Nama Pemilik -->
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="reg-owner">
+            <span>Nama Pemilik / Pengelola</span>
+            <span class="text-rose-600">*</span>
+          </label>
+          <div class="relative flex items-center rounded-xl bg-surface-container-low px-3 py-3 border border-surface-container-high focus-within:border-primary">
+            <span class="material-symbols-outlined text-secondary text-[20px] mr-2">person</span>
+            <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium" 
+                   id="reg-owner" placeholder="Contoh: Setya Ningrum" required type="text">
+          </div>
+        </div>
+
+        <!-- Nama Toko -->
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="reg-store">
+            <span>Nama Toko / Usaha</span>
+            <span class="text-rose-600">*</span>
+          </label>
+          <div class="relative flex items-center rounded-xl bg-surface-container-low px-3 py-3 border border-surface-container-high focus-within:border-primary">
+            <span class="material-symbols-outlined text-secondary text-[20px] mr-2">store</span>
+            <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium" 
+                   id="reg-store" placeholder="Contoh: Setya Aksesoris" required type="text">
+          </div>
+        </div>
+
+        <!-- No WhatsApp -->
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1" for="reg-phone">
+            <span>Nomor WhatsApp / HP</span>
+            <span class="text-rose-600">*</span>
+          </label>
+          <div class="relative flex items-center rounded-xl bg-surface-container-low px-3 py-3 border border-surface-container-high focus-within:border-primary">
+            <span class="material-symbols-outlined text-secondary text-[20px] mr-2">call</span>
+            <span class="font-currency font-bold text-xs text-secondary mr-2">+62</span>
+            <input class="w-full bg-transparent text-sm text-on-surface placeholder:text-secondary focus:outline-none font-medium font-mono" 
+                   id="reg-phone" placeholder="812-3456-7890" required type="tel">
+          </div>
+          <p class="text-[10px] text-secondary">Digunakan pada nota struk belanja digital & share WhatsApp.</p>
+        </div>
+
+        <!-- PIN 6 Digit -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1">
+              <span>PIN Keamanan Kasir (6 Digit)</span>
+              <span class="text-rose-600">*</span>
+            </label>
+            <span class="text-[11px] font-bold text-primary flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-[14px]">lock</span>
+              Proteksi POS
+            </span>
+          </div>
+          <div class="grid grid-cols-6 gap-2 pt-1" id="reg-pin-container">
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+            <input class="reg-pin-digit h-11 text-center font-currency font-bold text-base bg-surface-container-low border border-surface-container-high rounded-xl focus:outline-none focus:border-primary" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="password" required>
+          </div>
+          <p class="text-[10px] text-secondary">PIN untuk otorisasi transaksi kasir dan ubah harga.</p>
+        </div>
+
+        <!-- Google Sheets Option -->
+        <div class="rounded-xl bg-surface-container-low p-3.5 space-y-2 border border-surface-container-high/60">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-tertiary text-[20px]">cloud_sync</span>
+              <div>
+                <span class="text-xs font-bold text-on-surface block">Google Spreadsheet Sync</span>
+                <span class="text-[10px] text-secondary">Opsional / Dibuat Otomatis</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold">Auto-Gen</span>
+          </div>
+          <input class="w-full bg-surface-container-lowest border border-surface-container-high rounded-lg px-3 py-2 text-xs text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary" 
+                 id="reg-sheet-name" placeholder="Kosongkan untuk otomatis: Database_[NamaToko]_Sheets" type="text">
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-2">
+          <button id="btn-reg-submit" type="submit" 
+                  class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-white font-bold text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span>Buat Akun & Masuk Toko Baru</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Trust Assurance Footer -->
+      <div class="p-3 bg-surface-container rounded-xl flex items-center gap-3 text-xs text-secondary">
+        <span class="material-symbols-outlined text-primary text-[24px]">shield</span>
+        <span>Aplikasi siap digunakan offline & data aman di perangkat Anda.</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= TOP APP HEADER (VISIBLE AFTER REGISTRATION) ================= -->
+  <header id="main-app-header" class="fixed top-0 w-full z-40 pt-safe bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-container/60 shadow-sm transition-all hidden">
     <div class="h-16 px-4 flex items-center justify-between gap-2 max-w-2xl mx-auto">
       <!-- Store Identity -->
       <div class="flex items-center gap-3 min-w-0 cursor-pointer" onclick="openProfileModal()">
@@ -112,13 +271,13 @@
             <span id="header-store-badge">Toko Aktif</span>
             <span class="material-symbols-outlined text-[13px] text-primary">verified</span>
           </span>
-          <h1 id="header-store-name" class="font-bold text-base text-on-surface truncate">Setya Aksesoris</h1>
+          <h1 id="header-store-name" class="font-bold text-base text-on-surface truncate">Nama Toko</h1>
         </div>
       </div>
 
       <!-- Live Sync Pill & Actions -->
       <div class="flex items-center gap-2">
-        <!-- PWA Install Button (Appears if installable) -->
+        <!-- PWA Install Button -->
         <button id="btn-install-pwa" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold shadow-sm active:scale-95 transition-all animate-bounce" onclick="triggerPWAInstall()">
           <span class="material-symbols-outlined text-[16px]">install_mobile</span>
           <span>Instal App</span>
@@ -141,7 +300,7 @@
   </header>
 
   <!-- ================= MAIN CONTENT VIEWS ================= -->
-  <main class="flex-1 w-full max-w-2xl mx-auto pt-20 pb-28 px-4">
+  <main id="main-app-content" class="flex-1 w-full max-w-2xl mx-auto pt-20 pb-28 px-4 hidden">
 
     <!-- ================= VIEW 1: KASIR (POS) ================= -->
     <section id="view-kasir" class="app-view flex flex-col gap-4">
@@ -152,7 +311,7 @@
           <span class="material-symbols-outlined text-[18px] text-primary flex-shrink-0">cloud_done</span>
           <div class="flex flex-col min-w-0">
             <span class="text-xs font-medium text-on-surface truncate">
-              Google Sheets: <code id="banner-sheet-name" class="font-mono text-primary text-[11px] font-semibold">Database_SetyaAksesoris_Sheets</code>
+              Google Sheets: <code id="banner-sheet-name" class="font-mono text-primary text-[11px] font-semibold">Database_Sheets</code>
             </span>
             <span id="banner-sync-time" class="text-[10px] text-secondary">Sinkronisasi otomatis aktif • Siap Transaksi</span>
           </div>
@@ -172,15 +331,15 @@
               <span>Ringkasan Hari Ini</span>
             </div>
             <div id="pos-today-omset" class="font-currency text-2xl font-bold tracking-tight text-white">
-              Rp 1.485.000
+              Rp 0
             </div>
             <div class="flex items-center gap-2 pt-0.5">
               <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">
                 <span class="material-symbols-outlined text-[13px]">receipt_long</span>
-                <span id="pos-today-count">32 Transaksi</span>
+                <span id="pos-today-count">0 Transaksi</span>
               </span>
               <span class="text-xs text-primary-fixed/90 font-medium">
-                Target harian 74%
+                Toko Baru Aktif
               </span>
             </div>
           </div>
@@ -230,18 +389,41 @@
 
       <!-- Products Catalog Cards Grid -->
       <div id="pos-product-list" class="flex flex-col gap-3">
-        <!-- Generated by renderPOSProducts() -->
+        <!-- Populated by JS -->
       </div>
       
+      <!-- Empty State Card (When 0 products in catalog) -->
+      <div id="pos-empty-catalog-state" class="flex flex-col items-center justify-center p-8 bg-surface-container-lowest rounded-2xl border-2 border-dashed border-surface-container-high text-center space-y-3">
+        <div class="w-16 h-16 rounded-2xl bg-primary-fixed/40 text-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-[36px]">inventory_2</span>
+        </div>
+        <div class="space-y-1">
+          <h3 class="font-bold text-base text-on-surface">Etalase Toko Masih Kosong</h3>
+          <p class="text-xs text-secondary max-w-xs mx-auto">
+            Belum ada produk yang terdaftar. Tambahkan produk jualan pertama Anda untuk mulai melayani transaksi kasir!
+          </p>
+        </div>
+        <div class="pt-2 flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+          <button onclick="openProductModal()" class="w-full py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+            <span>Tambah Produk Perdana</span>
+          </button>
+          <button onclick="openSheetsSyncModal()" class="w-full py-3 px-4 rounded-xl bg-surface-container text-on-surface text-xs font-bold hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px] text-tertiary">table_chart</span>
+            <span>Import Google Sheets</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Empty Search Fallback -->
-      <div id="pos-empty-state" class="hidden flex-col items-center justify-center py-12 text-center text-secondary">
-        <span class="material-symbols-outlined text-5xl mb-2 text-surface-dim">inventory_2</span>
+      <div id="pos-empty-search-state" class="hidden flex-col items-center justify-center py-12 text-center text-secondary">
+        <span class="material-symbols-outlined text-5xl mb-2 text-surface-dim">search_off</span>
         <p class="font-semibold text-on-surface text-sm">Produk tidak ditemukan</p>
         <p class="text-xs mt-1">Coba kata kunci lain atau scan barcode produk</p>
       </div>
 
       <!-- Floating Cart Bottom Bar (Sticky) -->
-      <div id="pos-cart-bar" class="fixed bottom-20 inset-x-4 max-w-2xl mx-auto z-30 transition-all transform duration-300">
+      <div id="pos-cart-bar" class="fixed bottom-20 inset-x-4 max-w-2xl mx-auto z-30 transition-all transform duration-300 translate-y-24 opacity-0 pointer-events-none">
         <div class="bg-gradient-to-r from-on-surface to-slate-900 text-white rounded-2xl p-3.5 shadow-2xl flex items-center justify-between gap-3 border border-slate-700">
           <div class="flex items-center gap-3 min-w-0 cursor-pointer" onclick="openPaymentModal()">
             <div class="relative w-11 h-11 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -288,19 +470,23 @@
         
         <!-- Select Existing Product or New -->
         <div>
-          <label class="block text-xs font-bold text-secondary uppercase tracking-wider mb-1.5">Pilih Produk Yang Masuk</label>
-          <div class="relative">
-            <select id="inbound-product-select" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary font-medium" onchange="onInboundProductChange()">
-              <!-- Options populated by JS -->
-            </select>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-bold text-secondary uppercase tracking-wider">Pilih Produk Yang Masuk</label>
+            <button onclick="openProductModal()" class="text-xs font-bold text-primary flex items-center gap-0.5 hover:underline">
+              <span class="material-symbols-outlined text-[14px]">add</span>
+              Produk Baru
+            </button>
           </div>
+          <select id="inbound-product-select" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary font-medium" onchange="onInboundProductChange()">
+            <!-- Options populated by JS -->
+          </select>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <!-- Supplier -->
           <div>
             <label class="block text-xs font-semibold text-secondary mb-1">Nama Supplier / Nota</label>
-            <input id="inbound-supplier" type="text" placeholder="Cth: Grosir Mangga Dua" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
+            <input id="inbound-supplier" type="text" placeholder="Cth: Supplier Grosir" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
           </div>
           <!-- Inbound Date -->
           <div>
@@ -347,10 +533,10 @@
         <div class="p-3 bg-surface-container rounded-xl flex items-center justify-between text-xs">
           <div class="flex items-center gap-1.5">
             <span class="material-symbols-outlined text-primary text-[18px]">calculate</span>
-            <span class="text-secondary font-medium">Estimasi Margin Keuntungan:</span>
+            <span class="text-secondary font-medium">Estimasi Margin:</span>
           </div>
           <span id="inbound-margin-badge" class="font-bold font-currency text-primary bg-primary-fixed/60 px-2.5 py-1 rounded-full text-xs">
-            +Rp 5.000 (33.3%)
+            +Rp 5.000 (50.0%)
           </span>
         </div>
 
@@ -405,12 +591,12 @@
               <span class="text-xs font-bold uppercase tracking-wider text-primary-fixed">Untung Bersih (Net Profit)</span>
             </div>
             <span id="rekapan-margin-pct" class="px-2.5 py-0.5 rounded-full bg-primary-container text-white text-xs font-bold">
-              Margin 28.5%
+              Margin 0%
             </span>
           </div>
           <div class="mt-3 flex items-baseline gap-1">
             <span class="text-sm font-medium text-primary-fixed">Rp</span>
-            <span id="rekapan-profit" class="font-currency text-3xl font-bold tracking-tight text-white">6.650.000</span>
+            <span id="rekapan-profit" class="font-currency text-3xl font-bold tracking-tight text-white">0</span>
           </div>
           <div class="mt-2 text-[11px] text-primary-fixed/80">
             Penjualan dikurangi modal pokok barang (HPP)
@@ -427,7 +613,7 @@
             </div>
             <div class="flex items-baseline gap-0.5">
               <span class="text-xs text-secondary">Rp</span>
-              <span id="rekapan-omset" class="font-currency text-lg font-bold text-on-surface">23.280.000</span>
+              <span id="rekapan-omset" class="font-currency text-lg font-bold text-on-surface">0</span>
             </div>
             <span class="text-[10px] text-secondary mt-1 block">Bruto kotor</span>
           </div>
@@ -440,7 +626,7 @@
             </div>
             <div class="flex items-baseline gap-0.5">
               <span class="text-xs text-secondary">Rp</span>
-              <span id="rekapan-modal" class="font-currency text-lg font-bold text-secondary">16.630.000</span>
+              <span id="rekapan-modal" class="font-currency text-lg font-bold text-secondary">0</span>
             </div>
             <span class="text-[10px] text-secondary mt-1 block">Biaya modal produk</span>
           </div>
@@ -454,7 +640,7 @@
             </div>
             <div class="flex flex-col min-w-0">
               <span class="text-[11px] text-secondary font-semibold">Total Transaksi</span>
-              <span id="rekapan-tx-count" class="font-bold text-base text-on-surface">184 Nota</span>
+              <span id="rekapan-tx-count" class="font-bold text-base text-on-surface">0 Nota</span>
             </div>
           </div>
           <div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm border border-surface-container-high/50 flex items-center gap-3">
@@ -463,7 +649,7 @@
             </div>
             <div class="flex flex-col min-w-0">
               <span class="text-[11px] text-secondary font-semibold">Rata-rata Nota</span>
-              <span id="rekapan-avg-basket" class="font-currency font-bold text-sm text-on-surface">Rp 126.500</span>
+              <span id="rekapan-avg-basket" class="font-currency font-bold text-sm text-on-surface">Rp 0</span>
             </div>
           </div>
         </div>
@@ -500,7 +686,7 @@
             </div>
             <div class="min-w-0 flex flex-col">
               <span class="text-[11px] font-bold text-secondary uppercase tracking-wider">Database Google Sheets</span>
-              <h3 id="catalog-sheet-title" class="font-bold text-sm text-on-surface truncate">Database_SetyaAksesoris_Sheets</h3>
+              <h3 id="catalog-sheet-title" class="font-bold text-sm text-on-surface truncate">Database_Sheets</h3>
               <span class="text-[11px] text-secondary truncate">Tab: <strong class="text-on-surface">Data_Produk</strong> &bull; Drive Cloud</span>
             </div>
           </div>
@@ -537,21 +723,21 @@
         <div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm border border-surface-container-high/50 flex flex-col justify-between">
           <span class="text-[11px] text-secondary font-semibold">Total SKU</span>
           <div class="flex items-baseline gap-1 mt-1">
-            <span id="catalog-sku-count" class="font-currency font-bold text-lg text-on-surface">184</span>
+            <span id="catalog-sku-count" class="font-currency font-bold text-lg text-on-surface">0</span>
             <span class="text-[10px] text-secondary">item</span>
           </div>
         </div>
         <div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm border border-surface-container-high/50 flex flex-col justify-between">
           <span class="text-[11px] text-amber-600 font-semibold">Stok Menipis</span>
           <div class="flex items-baseline gap-1 mt-1">
-            <span id="catalog-low-stock-count" class="font-currency font-bold text-lg text-amber-600">3</span>
+            <span id="catalog-low-stock-count" class="font-currency font-bold text-lg text-amber-600">0</span>
             <span class="text-[10px] text-secondary">&lt;5 pcs</span>
           </div>
         </div>
         <div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm border border-surface-container-high/50 flex flex-col justify-between">
           <span class="text-[11px] text-secondary font-semibold">Nilai Aset</span>
           <div class="flex items-baseline gap-1 mt-1">
-            <span id="catalog-asset-value" class="font-currency font-bold text-xs text-primary truncate">Rp 12.8jt</span>
+            <span id="catalog-asset-value" class="font-currency font-bold text-xs text-primary truncate">Rp 0</span>
           </div>
         </div>
       </div>
@@ -577,8 +763,8 @@
 
   </main>
 
-  <!-- ================= BOTTOM NAVIGATION BAR ================= -->
-  <nav class="fixed bottom-0 inset-x-0 w-full z-40 pb-safe bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container/80 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+  <!-- ================= BOTTOM NAVIGATION BAR (VISIBLE AFTER REGISTRATION) ================= -->
+  <nav id="main-app-nav" class="fixed bottom-0 inset-x-0 w-full z-40 pb-safe bg-surface-container-lowest/95 backdrop-blur-md border-t border-surface-container/80 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] hidden">
     <div class="flex items-center justify-around h-16 max-w-2xl mx-auto px-2">
       <!-- Tab 1: Kasir -->
       <button onclick="switchTab('kasir', this)" class="nav-tab active-tab flex flex-col items-center justify-center gap-1 flex-1 py-1 min-h-[48px] text-primary transition-all">
@@ -734,8 +920,8 @@
       <div id="printable-receipt" class="thermal-receipt p-6 overflow-y-auto text-xs text-slate-800 space-y-3">
         <!-- Store Header -->
         <div class="text-center space-y-0.5">
-          <h2 id="receipt-store-name" class="font-bold text-base tracking-wide uppercase">SETYA AKSESORIS</h2>
-          <p id="receipt-store-address" class="text-[11px] text-slate-600">Jl. Raya Kebon Jeruk No. 42, Jakarta</p>
+          <h2 id="receipt-store-name" class="font-bold text-base tracking-wide uppercase">NAMA TOKO</h2>
+          <p id="receipt-store-address" class="text-[11px] text-slate-600">Alamat Toko</p>
           <p id="receipt-store-phone" class="text-[11px] text-slate-600">WA: 0812-3456-7890</p>
         </div>
 
@@ -747,7 +933,7 @@
           <span id="receipt-date">09/11/2026 14:30</span>
         </div>
         <div class="flex justify-between text-[11px] text-slate-600">
-          <span>Kasir: <strong id="receipt-cashier">Setya Ningrum</strong></span>
+          <span>Kasir: <strong id="receipt-cashier">Kasir</strong></span>
           <span id="receipt-payment-method">Metode: TUNAI</span>
         </div>
 
@@ -858,7 +1044,7 @@
 
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Jumlah Stok Awal</label>
-          <input id="prod-form-stock" type="number" min="0" value="20" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary font-currency font-bold">
+          <input id="prod-form-stock" type="number" min="0" value="10" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary font-currency font-bold">
         </div>
       </div>
 
@@ -892,27 +1078,36 @@
       <div class="p-4 overflow-y-auto space-y-3">
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Nama Toko</label>
-          <input id="cfg-store-name" type="text" value="Setya Aksesoris" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface font-semibold focus:outline-none focus:border-primary">
+          <input id="cfg-store-name" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface font-semibold focus:outline-none focus:border-primary">
         </div>
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Nama Pemilik / Kasir</label>
-          <input id="cfg-owner-name" type="text" value="Setya Ningrum" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
+          <input id="cfg-owner-name" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
         </div>
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Nomor WhatsApp Toko</label>
-          <input id="cfg-store-phone" type="text" value="0812-3456-7890" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface font-mono focus:outline-none focus:border-primary">
+          <input id="cfg-store-phone" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface font-mono focus:outline-none focus:border-primary">
         </div>
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Alamat di Nota</label>
-          <input id="cfg-store-address" type="text" value="Jl. Raya Kebon Jeruk No. 42, Jakarta Barat" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
+          <input id="cfg-store-address" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary">
         </div>
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Catatan Kaki Struk</label>
-          <textarea id="cfg-receipt-footer" rows="2" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-xs text-on-surface focus:outline-none focus:border-primary">Barang yang sudah dibeli tidak dapat ditukar kecuali ada perjanjian.</textarea>
+          <textarea id="cfg-receipt-footer" rows="2" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-xs text-on-surface focus:outline-none focus:border-primary"></textarea>
         </div>
         <div>
           <label class="block text-xs font-semibold text-secondary mb-1">Target Penjualan Harian (Rp)</label>
-          <input id="cfg-target-omset" type="number" step="100000" value="2000000" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm font-currency font-bold text-primary focus:outline-none focus:border-primary">
+          <input id="cfg-target-omset" type="number" step="100000" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-sm font-currency font-bold text-primary focus:outline-none focus:border-primary">
+        </div>
+
+        <!-- Danger Zone / Reset Akun -->
+        <div class="pt-3 border-t border-surface-container space-y-1">
+          <span class="text-xs font-bold text-rose-600 block">Zona Reset Akun</span>
+          <button onclick="resetAccountData()" type="button" class="w-full py-2.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-xs active:scale-95 transition-all flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">logout</span>
+            <span>Keluar & Reset Akun Toko</span>
+          </button>
         </div>
       </div>
 
@@ -956,7 +1151,7 @@
 
         <div>
           <label class="block font-bold text-secondary mb-1">Nama Spreadsheet</label>
-          <input id="cfg-sheet-name" type="text" value="Database_SetyaAksesoris_Sheets" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-xs text-on-surface font-semibold focus:outline-none focus:border-primary">
+          <input id="cfg-sheet-name" type="text" class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 text-xs text-on-surface font-semibold focus:outline-none focus:border-primary">
         </div>
 
         <div>
@@ -1010,7 +1205,6 @@
       <div class="p-4 space-y-4 text-center">
         <!-- Scanner Viewport Finder Graphic -->
         <div class="relative w-full h-48 bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center">
-          <video id="barcode-video" class="w-full h-full object-cover hidden" playsinline></video>
           <div class="absolute inset-4 border-2 border-primary-fixed border-dashed rounded-lg animate-pulse flex items-center justify-center">
             <span class="text-xs text-primary-fixed font-mono bg-black/60 px-2 py-1 rounded">Arahkan ke Barcode Produk</span>
           </div>
@@ -1018,7 +1212,7 @@
         </div>
 
         <div class="space-y-2">
-          <p class="text-xs text-secondary">Atau pilih produk cepat untuk simulasi pemindaian barcode fisik:</p>
+          <p class="text-xs text-secondary">Pilih produk terdaftar untuk simulasi scan barcode:</p>
           <div id="barcode-quick-picks" class="flex flex-wrap gap-1.5 justify-center">
             <!-- Populated by JS -->
           </div>
@@ -1043,147 +1237,15 @@
 
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    // ================= INITIAL DATA & STATE =================
-    const STORAGE_KEY_PRODUCTS = 'my_kasir_products_v1';
-    const STORAGE_KEY_TRANSACTIONS = 'my_kasir_transactions_v1';
-    const STORAGE_KEY_INBOUND = 'my_kasir_inbound_v1';
-    const STORAGE_KEY_SETTINGS = 'my_kasir_settings_v1';
+    // ================= STORAGE KEYS =================
+    const STORAGE_KEY_AUTH = 'my_kasir_auth_v2';
+    const STORAGE_KEY_PRODUCTS = 'my_kasir_products_v2';
+    const STORAGE_KEY_TRANSACTIONS = 'my_kasir_transactions_v2';
+    const STORAGE_KEY_INBOUND = 'my_kasir_inbound_v2';
+    const STORAGE_KEY_SETTINGS = 'my_kasir_settings_v2';
 
-    // Default Seed Products matching original design files
-    const DEFAULT_PRODUCTS = [
-      {
-        id: 'PRD-001',
-        name: 'Jepit Rambut Pita Kupu-Kupu (Set 5pcs)',
-        category: 'Aksesoris',
-        barcode: '8991001',
-        buyPrice: 10000,
-        sellPrice: 15000,
-        stock: 40,
-        icon: 'auto_awesome',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDC6oHHZYbQ1gf1bi8biVByZvvelIkFT7ipiOTvuxEMjQ8VMg68Hb36xta3uZB6jguG4hG9HmV-ID_egsdYkqTfdqSbKcXzCCjJqUHZV7wCCx300D0LgjisA3GMmQ1A2OsHwEFpxjI2cR5PX0UI7MBTdbKHbNOYf31Bke8PIXRGF2HuYG92xfcdiJuZ5sp-5DhQQME-GaqnYAQvPsMzTs_afClQyhbn3IKrWmuSVAmY'
-      },
-      {
-        id: 'PRD-002',
-        name: 'Kotak Pensil 3D Sanrio Cinnamoroll',
-        category: 'ATK Anak',
-        barcode: '8991002',
-        buyPrice: 22000,
-        sellPrice: 35000,
-        stock: 18,
-        icon: 'draw',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDC6oHHZYbQ1gf1bi8biVByZvvelIkFT7ipiOTvuxEMjQ8VMg68Hb36xta3uZB6jguG4hG9HmV-ID_egsdYkqTfdqSbKcXzCCjJqUHZV7wCCx300D0LgjisA3GMmQ1A2OsHwEFpxjI2cR5PX0UI7MBTdbKHbNOYf31Bke8PIXRGF2HuYG92xfcdiJuZ5sp-5DhQQME-GaqnYAQvPsMzTs_afClQyhbn3IKrWmuSVAmY'
-      },
-      {
-        id: 'PRD-003',
-        name: 'Kerudung Bella Square Anak Pastel',
-        category: 'Kerudung',
-        barcode: '8991003',
-        buyPrice: 16000,
-        sellPrice: 25000,
-        stock: 32,
-        icon: 'checkroom',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAvCJFWCHqPpblpRLURmG0WGllhCdlRljXGcdMrR_ZL8jum45twAhJCQezKFJ4La-2gigYgZRvYMSNuKkumLDDU8thzoW77hiJi6jse2CYnp1KZSL-4SE0WYqjwbwIksVcf8hcCc-UWlIkvf7E3wevDrP66LVA6GQvxONVwe8Wjm2lG_RF3TgEqARbAA9OdZNKQKNKE7zwoSaTy2TNO5HRcv5-c7TYluYJA0Vb2jaGN'
-      },
-      {
-        id: 'PRD-004',
-        name: 'Tumbler Gradasi Doff 500ml Tahan Panas',
-        category: 'Tumbler',
-        barcode: '8991004',
-        buyPrice: 32000,
-        sellPrice: 49000,
-        stock: 12,
-        icon: 'water_bottle',
-        image: ''
-      },
-      {
-        id: 'PRD-005',
-        name: 'Bando Mutiara Korea Cantik',
-        category: 'Aksesoris',
-        barcode: '8991005',
-        buyPrice: 8000,
-        sellPrice: 14000,
-        stock: 25,
-        icon: 'diamond',
-        image: ''
-      },
-      {
-        id: 'PRD-006',
-        name: 'Buku Tulis Catatan Spiral A5 Sanrio',
-        category: 'ATK Anak',
-        barcode: '8991006',
-        buyPrice: 7500,
-        sellPrice: 12000,
-        stock: 4,
-        icon: 'menu_book',
-        image: ''
-      }
-    ];
-
-    // Default Seed Transactions
-    const DEFAULT_TRANSACTIONS = [
-      {
-        id: 'TRX-20261109-0029',
-        timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
-        items: [
-          { id: 'PRD-001', name: 'Jepit Rambut Pita Kupu-Kupu (Set 5pcs)', qty: 2, price: 15000, buyPrice: 10000 },
-          { id: 'PRD-002', name: 'Kotak Pensil 3D Sanrio Cinnamoroll', qty: 1, price: 35000, buyPrice: 22000 }
-        ],
-        subtotal: 65000,
-        paid: 70000,
-        change: 5000,
-        method: 'Tunai',
-        profit: 23000
-      },
-      {
-        id: 'TRX-20261109-0030',
-        timestamp: new Date(Date.now() - 3600000).toISOString(),
-        items: [
-          { id: 'PRD-003', name: 'Kerudung Bella Square Anak Pastel', qty: 2, price: 25000, buyPrice: 16000 },
-          { id: 'PRD-004', name: 'Tumbler Gradasi Doff 500ml Tahan Panas', qty: 1, price: 49000, buyPrice: 32000 }
-        ],
-        subtotal: 99000,
-        paid: 99000,
-        change: 0,
-        method: 'QRIS',
-        profit: 35000
-      }
-    ];
-
-    // Default Inbound History
-    const DEFAULT_INBOUND = [
-      {
-        id: 'INB-001',
-        date: '2026-11-08',
-        productId: 'PRD-001',
-        productName: 'Jepit Rambut Pita Kupu-Kupu (Set 5pcs)',
-        qty: 50,
-        buyPrice: 10000,
-        supplier: 'Grosir Pasar Pagi Mangga Dua'
-      },
-      {
-        id: 'INB-002',
-        date: '2026-11-07',
-        productId: 'PRD-002',
-        productName: 'Kotak Pensil 3D Sanrio Cinnamoroll',
-        qty: 20,
-        buyPrice: 22000,
-        supplier: 'Distributor Stationery Utama'
-      }
-    ];
-
-    // Default Store Settings
-    const DEFAULT_SETTINGS = {
-      storeName: 'Setya Aksesoris',
-      ownerName: 'Setya Ningrum',
-      phone: '0812-3456-7890',
-      address: 'Jl. Raya Kebon Jeruk No. 42, Jakarta Barat',
-      receiptFooter: 'Barang yang sudah dibeli tidak dapat ditukar kecuali ada perjanjian.',
-      targetOmset: 2000000,
-      sheetName: 'Database_SetyaAksesoris_Sheets',
-      webhookUrl: ''
-    };
-
-    // State Variables
+    // State Variables (Clean Slate: 0 Products Initially!)
+    let auth = null;
     let products = [];
     let transactions = [];
     let inboundLogs = [];
@@ -1226,40 +1288,22 @@
 
     // ================= INITIALIZATION =================
     function initApp() {
-      // Load products
-      const savedProducts = localStorage.getItem(STORAGE_KEY_PRODUCTS);
-      products = savedProducts ? JSON.parse(savedProducts) : [...DEFAULT_PRODUCTS];
+      // Setup PIN 6-digit auto-advancing interaction
+      setupPinInputs();
 
-      // Load transactions
-      const savedTx = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
-      transactions = savedTx ? JSON.parse(savedTx) : [...DEFAULT_TRANSACTIONS];
+      // Check registration
+      const savedAuth = localStorage.getItem(STORAGE_KEY_AUTH);
+      if (savedAuth) {
+        auth = JSON.parse(savedAuth);
+      }
 
-      // Load inbound
-      const savedInb = localStorage.getItem(STORAGE_KEY_INBOUND);
-      inboundLogs = savedInb ? JSON.parse(savedInb) : [...DEFAULT_INBOUND];
-
-      // Load settings
-      const savedSettings = localStorage.getItem(STORAGE_KEY_SETTINGS);
-      settings = savedSettings ? JSON.parse(savedSettings) : { ...DEFAULT_SETTINGS };
-
-      // Apply settings to UI
-      applySettingsToUI();
-
-      // Render POS
-      renderPOSProducts();
-      updateCartUI();
-
-      // Render Barang Masuk
-      populateInboundDropdown();
-      renderInboundHistory();
-      document.getElementById('inbound-date').value = new Date().toISOString().split('T')[0];
-
-      // Render Rekapan
-      updateRekapanMetrics('bulan');
-
-      // Render Katalog
-      renderCatalogTable();
-      updateCatalogMetrics();
+      if (!auth || !auth.isRegistered) {
+        // Show Registration Screen first!
+        showRegistrationScreen();
+      } else {
+        // Already registered, enter main application
+        showMainApp();
+      }
 
       // Setup PWA install listener
       window.addEventListener('beforeinstallprompt', (e) => {
@@ -1272,14 +1316,167 @@
       // Register Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').then(() => {
-          console.log('My Kasir Service Worker registered successfully.');
+          console.log('My Kasir Service Worker active.');
         }).catch((err) => {
-          console.log('SW registration error:', err);
+          console.log('SW error:', err);
         });
       }
     }
 
+    function setupPinInputs() {
+      const pinInputs = document.querySelectorAll('.reg-pin-digit');
+      pinInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          if (e.target.value.length === 1 && index < pinInputs.length - 1) {
+            pinInputs[index + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            pinInputs[index - 1].focus();
+          }
+        });
+      });
+    }
+
+    function showRegistrationScreen() {
+      document.getElementById('screen-registration').classList.remove('hidden');
+      document.getElementById('main-app-header').classList.add('hidden');
+      document.getElementById('main-app-content').classList.add('hidden');
+      document.getElementById('main-app-nav').classList.add('hidden');
+    }
+
+    function handleRegistrationSubmit(event) {
+      event.preventDefault();
+
+      const ownerName = document.getElementById('reg-owner').value.trim();
+      const storeName = document.getElementById('reg-store').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const sheetNameInput = document.getElementById('reg-sheet-name').value.trim();
+
+      // Collect 6-digit PIN
+      let pinCode = '';
+      document.querySelectorAll('.reg-pin-digit').forEach(input => {
+        pinCode += input.value.trim();
+      });
+
+      if (!ownerName || !storeName || !phone) {
+        showToast('Mohon lengkapi data pemilik dan toko', false);
+        return;
+      }
+
+      if (pinCode.length < 6) {
+        showToast('PIN Kasir harus 6 digit angka', false);
+        return;
+      }
+
+      const defaultSheetName = sheetNameInput || `Database_${storeName.replace(/\s+/g, '')}_Sheets`;
+
+      // Save Auth State
+      auth = {
+        isRegistered: true,
+        ownerName,
+        storeName,
+        phone,
+        pin: pinCode,
+        sheetName: defaultSheetName,
+        registeredAt: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(auth));
+
+      // Initialize Settings from registration
+      settings = {
+        storeName: storeName,
+        ownerName: ownerName,
+        phone: phone,
+        address: 'Alamat ' + storeName,
+        receiptFooter: 'Barang yang sudah dibeli tidak dapat ditukar kecuali ada perjanjian.',
+        targetOmset: 1500000,
+        sheetName: defaultSheetName,
+        webhookUrl: ''
+      };
+      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+
+      // INITIALIZE CLEAN SLATE (0 PRODUK SAMASEKALI)
+      products = [];
+      transactions = [];
+      inboundLogs = [];
+      cart = {};
+
+      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
+      localStorage.setItem(STORAGE_KEY_INBOUND, JSON.stringify(inboundLogs));
+
+      const btnSubmit = document.getElementById('btn-reg-submit');
+      btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Menyiapkan Toko Baru...</span>';
+
+      setTimeout(() => {
+        showToast(`Selamat Datang di ${storeName}! Database baru 0 produk siap digunakan. 🎉`);
+        showMainApp();
+      }, 800);
+    }
+
+    function showMainApp() {
+      // Hide registration screen
+      document.getElementById('screen-registration').classList.add('hidden');
+
+      // Show header, content, and bottom navigation
+      document.getElementById('main-app-header').classList.remove('hidden');
+      document.getElementById('main-app-content').classList.remove('hidden');
+      document.getElementById('main-app-nav').classList.remove('hidden');
+
+      // Load data from localStorage
+      const savedProducts = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+      products = savedProducts ? JSON.parse(savedProducts) : [];
+
+      const savedTx = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
+      transactions = savedTx ? JSON.parse(savedTx) : [];
+
+      const savedInb = localStorage.getItem(STORAGE_KEY_INBOUND);
+      inboundLogs = savedInb ? JSON.parse(savedInb) : [];
+
+      const savedSettings = localStorage.getItem(STORAGE_KEY_SETTINGS);
+      if (savedSettings) {
+        settings = JSON.parse(savedSettings);
+      } else if (auth) {
+        settings = {
+          storeName: auth.storeName,
+          ownerName: auth.ownerName,
+          phone: auth.phone,
+          address: 'Alamat ' + auth.storeName,
+          receiptFooter: 'Barang yang sudah dibeli tidak dapat ditukar.',
+          targetOmset: 1500000,
+          sheetName: auth.sheetName,
+          webhookUrl: ''
+        };
+      }
+
+      applySettingsToUI();
+
+      // Render components
+      renderPOSProducts();
+      updateCartUI();
+      populateInboundDropdown();
+      renderInboundHistory();
+      document.getElementById('inbound-date').value = new Date().toISOString().split('T')[0];
+      updateRekapanMetrics('bulan');
+      renderCatalogTable();
+      updateCatalogMetrics();
+    }
+
+    function resetAccountData() {
+      if (confirm('Yakin ingin mereset akun toko ini? Anda akan diarahkan kembali ke halaman pendaftaran awal.')) {
+        localStorage.removeItem(STORAGE_KEY_AUTH);
+        localStorage.removeItem(STORAGE_KEY_SETTINGS);
+        localStorage.removeItem(STORAGE_KEY_PRODUCTS);
+        localStorage.removeItem(STORAGE_KEY_TRANSACTIONS);
+        localStorage.removeItem(STORAGE_KEY_INBOUND);
+        location.reload();
+      }
+    }
+
     function applySettingsToUI() {
+      if (!settings.storeName) return;
       document.getElementById('header-store-name').textContent = settings.storeName;
       document.getElementById('receipt-store-name').textContent = settings.storeName.toUpperCase();
       document.getElementById('receipt-store-address').textContent = settings.address;
@@ -1295,7 +1492,7 @@
       document.getElementById('cfg-store-phone').value = settings.phone;
       document.getElementById('cfg-store-address').value = settings.address;
       document.getElementById('cfg-receipt-footer').value = settings.receiptFooter;
-      document.getElementById('cfg-target-omset').value = settings.targetOmset;
+      document.getElementById('cfg-target-omset').value = settings.targetOmset || 1500000;
       document.getElementById('cfg-sheet-name').value = settings.sheetName;
       document.getElementById('cfg-webhook-url').value = settings.webhookUrl || '';
     }
@@ -1360,12 +1557,23 @@
 
     function renderPOSProducts() {
       const container = document.getElementById('pos-product-list');
-      const emptyState = document.getElementById('pos-empty-state');
+      const emptyCatalogState = document.getElementById('pos-empty-catalog-state');
+      const emptySearchState = document.getElementById('pos-empty-search-state');
       const searchVal = document.getElementById('input-pos-search').value.toLowerCase().trim();
       const clearBtn = document.getElementById('btn-clear-pos-search');
 
       if (searchVal.length > 0) clearBtn.classList.remove('hidden');
       else clearBtn.classList.add('hidden');
+
+      // IF NO PRODUCTS IN CATALOG AT ALL (CLEAN SLATE):
+      if (products.length === 0) {
+        container.innerHTML = '';
+        emptyCatalogState.classList.remove('hidden');
+        emptySearchState.classList.add('hidden');
+        return;
+      } else {
+        emptyCatalogState.classList.add('hidden');
+      }
 
       const filtered = products.filter(p => {
         const matchCat = (activeCategory === 'Semua' || p.category === activeCategory);
@@ -1375,13 +1583,13 @@
 
       if (filtered.length === 0) {
         container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        emptyState.classList.add('flex');
+        emptySearchState.classList.remove('hidden');
+        emptySearchState.classList.add('flex');
         return;
       }
 
-      emptyState.classList.add('hidden');
-      emptyState.classList.remove('flex');
+      emptySearchState.classList.add('hidden');
+      emptySearchState.classList.remove('flex');
 
       container.innerHTML = filtered.map(prod => {
         const inCartQty = cart[prod.id] || 0;
@@ -1464,7 +1672,6 @@
       if (badge) badge.textContent = totalQty;
       if (totalDisplay) totalDisplay.textContent = formatRp(totalAmount);
 
-      // Hide or show bottom cart floating bar
       if (totalQty > 0) {
         cartBar.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
         cartBar.classList.add('translate-y-0', 'opacity-100');
@@ -1516,7 +1723,6 @@
       document.getElementById('pay-total-amount').textContent = formatRp(totalAmount);
       document.getElementById('pay-item-summary').textContent = `${totalQty} Item dalam pesanan`;
 
-      // Default cash input to exact amount
       document.getElementById('input-cash-received').value = totalAmount;
       calculateCashChange();
 
@@ -1711,6 +1917,11 @@
     // ================= BARANG MASUK LOGIC =================
     function populateInboundDropdown() {
       const select = document.getElementById('inbound-product-select');
+      if (products.length === 0) {
+        select.innerHTML = '<option value="">-- Belum ada produk, klik + Produk Baru di atas --</option>';
+        document.getElementById('inbound-current-stock').innerHTML = '<span>0 Pcs</span>';
+        return;
+      }
       select.innerHTML = products.map(p => `
         <option value="${p.id}">${p.name} (Stok: ${p.stock})</option>
       `).join('');
@@ -1742,6 +1953,12 @@
     }
 
     function submitInboundStock() {
+      if (products.length === 0) {
+        showToast('Tambahkan produk baru terlebih dahulu!', false);
+        openProductModal();
+        return;
+      }
+
       const prodId = document.getElementById('inbound-product-select').value;
       const qtyIn = Number(document.getElementById('inbound-qty').value) || 0;
       const buyPrice = Number(document.getElementById('inbound-buy-price').value) || 0;
@@ -1757,12 +1974,10 @@
       const prod = products.find(p => p.id === prodId);
       if (!prod) return;
 
-      // Update Product Stock & Pricing
       prod.stock += qtyIn;
       prod.buyPrice = buyPrice;
       prod.sellPrice = sellPrice;
 
-      // Create Inbound Log
       const newLog = {
         id: 'INB-' + Date.now().toString().slice(-6),
         date: date,
@@ -1775,13 +1990,11 @@
 
       inboundLogs.unshift(newLog);
 
-      // Save
       localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
       localStorage.setItem(STORAGE_KEY_INBOUND, JSON.stringify(inboundLogs));
 
       showToast(`Berhasil menambah +${qtyIn} pcs untuk ${prod.name}!`);
 
-      // Refresh
       renderInboundHistory();
       populateInboundDropdown();
       renderPOSProducts();
@@ -1848,7 +2061,6 @@
       document.getElementById('rekapan-tx-count').textContent = `${txCount} Nota`;
       document.getElementById('rekapan-avg-basket').textContent = formatRp(avgBasket);
 
-      // Render Transaction List
       const listContainer = document.getElementById('rekapan-transaction-list');
       if (filteredTx.length === 0) {
         listContainer.innerHTML = '<p class="text-xs text-secondary py-6 text-center">Belum ada transaksi di periode ini</p>';
@@ -1886,6 +2098,17 @@
     function renderCatalogTable() {
       const container = document.getElementById('catalog-items-list');
       const search = (document.getElementById('input-catalog-search')?.value || '').toLowerCase().trim();
+
+      if (products.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 bg-surface-container-lowest rounded-xl border border-dashed border-surface-container-high text-center space-y-2">
+            <span class="material-symbols-outlined text-4xl text-surface-dim">inventory_2</span>
+            <p class="font-bold text-xs text-on-surface">Katalog Masih Kosong (0 SKU)</p>
+            <p class="text-[11px] text-secondary">Silakan klik tombol "Tambah Produk" di atas untuk mendaftarkan barang jualan pertama Anda.</p>
+          </div>
+        `;
+        return;
+      }
 
       const filtered = products.filter(p => {
         return !search || p.name.toLowerCase().includes(search) || (p.barcode && p.barcode.includes(search));
@@ -2014,7 +2237,6 @@
       }
 
       if (formId) {
-        // Edit existing
         const prod = products.find(p => p.id === formId);
         if (prod) {
           prod.name = name;
@@ -2025,7 +2247,6 @@
           prod.stock = stock;
         }
       } else {
-        // Add new
         const newProduct = {
           id: 'PRD-' + (products.length + 1).toString().padStart(3, '0'),
           name,
@@ -2068,12 +2289,12 @@
     }
 
     function saveStoreSettings() {
-      settings.storeName = document.getElementById('cfg-store-name').value.trim() || 'Setya Aksesoris';
+      settings.storeName = document.getElementById('cfg-store-name').value.trim() || 'Toko Saya';
       settings.ownerName = document.getElementById('cfg-owner-name').value.trim() || 'Kasir';
       settings.phone = document.getElementById('cfg-store-phone').value.trim() || '';
       settings.address = document.getElementById('cfg-store-address').value.trim() || '';
       settings.receiptFooter = document.getElementById('cfg-receipt-footer').value.trim() || '';
-      settings.targetOmset = Number(document.getElementById('cfg-target-omset').value) || 2000000;
+      settings.targetOmset = Number(document.getElementById('cfg-target-omset').value) || 1500000;
 
       localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
       applySettingsToUI();
@@ -2082,7 +2303,7 @@
     }
 
     function saveSheetsConfig() {
-      settings.sheetName = document.getElementById('cfg-sheet-name').value.trim() || 'Database_SetyaAksesoris_Sheets';
+      settings.sheetName = document.getElementById('cfg-sheet-name').value.trim() || 'Database_Sheets';
       settings.webhookUrl = document.getElementById('cfg-webhook-url').value.trim();
 
       localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
@@ -2101,7 +2322,7 @@
         document.getElementById('banner-sync-time').textContent = `Tersinkron otomatis baru saja (${nowTime} WIB)`;
         document.getElementById('catalog-last-sync').textContent = `Baru Saja (${nowTime} WIB)`;
         showToast('Sinkronisasi Google Spreadsheet Berhasil! 🟢');
-      }, 900);
+      }, 800);
     }
 
     // ================= CSV EXPORTERS =================
@@ -2138,11 +2359,15 @@
     // ================= BARCODE SCANNER MODAL =================
     function openBarcodeScannerModal() {
       const container = document.getElementById('barcode-quick-picks');
-      container.innerHTML = products.map(p => `
-        <button onclick="simulateScanBarcode('${p.barcode}')" class="px-2.5 py-1.5 rounded-lg bg-surface-container text-[11px] font-mono text-on-surface hover:bg-primary hover:text-white transition-all">
-          ${p.name.split(' ')[0]} (#${p.barcode})
-        </button>
-      `).join('');
+      if (products.length === 0) {
+        container.innerHTML = '<span class="text-xs text-secondary">Belum ada produk terdaftar untuk di-scan</span>';
+      } else {
+        container.innerHTML = products.map(p => `
+          <button onclick="simulateScanBarcode('${p.barcode}')" class="px-2.5 py-1.5 rounded-lg bg-surface-container text-[11px] font-mono text-on-surface hover:bg-primary hover:text-white transition-all">
+            ${p.name.split(' ')[0]} (#${p.barcode})
+          </button>
+        `).join('');
+      }
 
       document.getElementById('modal-barcode').classList.remove('hidden');
     }
@@ -2174,7 +2399,6 @@
           deferredInstallPrompt = null;
         });
       } else {
-        // Fallback info for iOS / desktop
         alert("Untuk menginstal di HP:\n• Android Chrome: Tap menu titik tiga (⋮) > 'Tambahkan ke Layar Utama' / 'Instal aplikasi'\n• iPhone Safari: Tap tombol Share (kotak panah ke atas ⎋) > 'Tambahkan ke Layar Utama' (Add to Home Screen)");
       }
     }
