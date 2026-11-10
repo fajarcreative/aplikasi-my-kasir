@@ -1216,21 +1216,30 @@
           </div>
         </div>
 
-        <!-- Contoh Cepat (1-Klik) Preset -->
+        <!-- Contoh Cepat (1-Klik) Preset: Hanya mengisi nama & harga, TIDAK mengubah foto -->
         <div class="space-y-1">
-          <span class="text-[11px] font-bold text-secondary uppercase tracking-wider block">Atau Pilih Contoh Cepat (1-Klik):</span>
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-secondary uppercase tracking-wider block">Pilih Contoh Cepat (Nama & Harga):</span>
+            <span class="text-[10px] text-primary font-medium flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-[13px]">shield</span>
+              <span>Foto Anda Tetap Aman</span>
+            </span>
+          </div>
           <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-            <button type="button" onclick="applyProductPreset('Jepit Rambut Pita Pastel', 'Aksesoris', 10000, 15000, 20, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDC6oHHZYbQ1gf1bi8biVByZvvelIkFT7ipiOTvuxEMjQ8VMg68Hb36xta3uZB6jguG4hG9HmV-ID_egsdYkqTfdqSbKcXzCCjJqUHZV7wCCx300D0LgjisA3GMmQ1A2OsHwEFpxjI2cR5PX0UI7MBTdbKHbNOYf31Bke8PIXRGF2HuYG92xfcdiJuZ5sp-5DhQQME-GaqnYAQvPsMzTs_afClQyhbn3IKrWmuSVAmY')" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all">
+            <button type="button" onclick="applyProductPreset('Jepit Rambut Pita Pastel', 'Aksesoris', 10000, 15000, 20)" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all shadow-2xs">
               🎀 Pita Rambut
             </button>
-            <button type="button" onclick="applyProductPreset('Kotak Pensil 3D Sanrio', 'ATK Anak', 22000, 35000, 15, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDE-cw4KQp4eNF2xu0-9zph6U-wK-te3oYlRIIlQfmEipPGa48c14w5186ktGzD5TcYBYbjxrZsNUuni72dUZKJrUyJYaW_xQsIv-QiXuV_fjhC5lno0DRswwOpUOggAx4o3NN6lEvUJOlU0n45gYcUglMGl7q-n5Uu-scwzltHxryP-afWU7sMZLFGPO1fSDcbzFsj6Bkw0lOKpFteWuzlm1oW0adIqBXfUaNsvgar')" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all">
+            <button type="button" onclick="applyProductPreset('Kotak Pensil 3D Sanrio', 'ATK Anak', 22000, 35000, 15)" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all shadow-2xs">
               ✏️ Kotak Pensil
             </button>
-            <button type="button" onclick="applyProductPreset('Kerudung Bella Square Anak', 'Kerudung', 16000, 25000, 25, 'https://lh3.googleusercontent.com/aida-public/AB6AXuAvCJFWCHqPpblpRLURmG0WGllhCdlRljXGcdMrR_ZL8jum45twAhJCQezKFJ4La-2gigYgZRvYMSNuKkumLDDU8thzoW77hiJi6jse2CYnp1KZSL-4SE0WYqjwbwIksVcf8hcCc-UWlIkvf7E3wevDrP66LVA6GQvxONVwe8Wjm2lG_RF3TgEqARbAA9OdZNKQKNKE7zwoSaTy2TNO5HRcv5-c7TYluYJA0Vb2jaGN')" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all">
+            <button type="button" onclick="applyProductPreset('Kerudung Bella Square Anak', 'Kerudung', 16000, 25000, 25)" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all shadow-2xs">
               🧕 Kerudung Bella
             </button>
-            <button type="button" onclick="applyProductPreset('Tumbler Gradasi Doff 500ml', 'Tumbler', 32000, 49000, 12, '')" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all">
+            <button type="button" onclick="applyProductPreset('Tumbler Gradasi Doff 500ml', 'Tumbler', 32000, 49000, 12)" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all shadow-2xs">
               🍶 Tumbler
+            </button>
+            <button type="button" onclick="applyProductPreset('Buku Tulis Karakter A5', 'ATK Anak', 5000, 8000, 30)" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-[11px] font-medium text-on-surface whitespace-nowrap active:scale-95 transition-all shadow-2xs">
+              📓 Buku Tulis
             </button>
           </div>
         </div>
@@ -2953,14 +2962,15 @@
       event.target.value = '';
     }
 
-    function applyProductPreset(name, category, buy, sell, stock, img) {
+    function applyProductPreset(name, category, buy, sell, stock) {
       document.getElementById('prod-form-name').value = name;
       document.getElementById('prod-form-category').value = category;
       document.getElementById('prod-form-buy-price').value = buy;
       document.getElementById('prod-form-sell-price').value = sell;
       document.getElementById('prod-form-stock').value = stock;
-      setProductImagePreview(img || '');
-      showToast(`Preset "${name}" diterapkan! ✨`);
+
+      // JANGAN PERNAH MENGUBAH / MENGHAPUS FOTO: Foto yang sudah difoto / di-upload pengguna tetap 100% aman!
+      showToast(`Template "${name}" diterapkan. Foto produk Anda tetap aman! ✨`);
     }
 
     function openProductModal(prodId = null) {
